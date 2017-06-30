@@ -1,17 +1,11 @@
 #include <iostream>
+#include "TetriminoShape.h"
 #pragma once
 
 class Tetrimino {
 public:
-   enum Shapes {
-    SQUARE,
-    T,
-    S,
-    INVERSE_S,
-    L,
-    INVERSE_L,
-    LINE
-  };
+
+
   /*
   The map is intended to act as a 2D representation of the Tetromino.
   MAP_LENGTH defines the width/height of the square.
@@ -20,17 +14,18 @@ public:
 
 protected:
 
-  Shapes name;
-  unsigned char map[MAP_LENGTH*MAP_LENGTH];
+  TetriminoShape name;
+  unsigned short map[MAP_LENGTH*MAP_LENGTH];
 
 public:
 
-  Tetrimino();
+  Tetrimino() {};
+  Tetrimino(TetriminoShape s, unsigned short * map);
   ~Tetrimino();
 
-  Shapes getShape();
-  unsigned char* getMap();
-  virtual unsigned char* rotate() =0;
+  TetriminoShape getShape();
+  unsigned short* getMap();
+  virtual unsigned short* rotate() =0;
   
   //For debuging purposes only
   void print();

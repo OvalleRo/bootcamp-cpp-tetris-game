@@ -133,6 +133,7 @@
     <ClInclude Include="StaticTetrimino.h" />
     <ClInclude Include="Tetrimino.h" />
     <ClInclude Include="TetriminoManager.h" />
+    <ClInclude Include="TetriminoShape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

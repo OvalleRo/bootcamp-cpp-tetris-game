@@ -1,17 +1,28 @@
 #include <SFML/Graphics.hpp>
-#include "StaticTetrimino.h"
-#include "RotableTetrimino.h"
+
+#include "TetriminoManager.h"
 
 int main()
 {
   Tetrimino *t;
-  t = new RotableTetrimino(Tetrimino::T);
+  TetriminoManager mngr{};
+
+  t = mngr.getByName(TetriminoShape::T);
+
   t->print();
 
   t->rotate();
   t->print();
 
+
   delete t;
+
+  t = mngr.getRandom();
+  t->print();
+
+  t->rotate();
+  t->print();
+
 
   return 0;
 }

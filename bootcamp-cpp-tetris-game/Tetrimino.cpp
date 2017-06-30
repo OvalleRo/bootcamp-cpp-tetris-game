@@ -3,20 +3,22 @@
 #include "Tetrimino.h"
 
 
-Tetrimino::Tetrimino()
+Tetrimino::Tetrimino(TetriminoShape s, unsigned short * map)
 {
+  this->name = s;
+  std::copy(map, map + (MAP_LENGTH*MAP_LENGTH), this->map);
 }
 
 Tetrimino::~Tetrimino()
 {
 }
 
-Tetrimino::Shapes Tetrimino::getShape()
+TetriminoShape Tetrimino::getShape()
 {
   return name;
 }
 
-unsigned char * Tetrimino::getMap()
+unsigned short * Tetrimino::getMap()
 {
   return map;
 }
@@ -33,5 +35,6 @@ void Tetrimino::print()
     }
     std::cout << std::endl;
   }
+  std::cout << std::endl;
 }
 

@@ -4,9 +4,9 @@ class StaticTetrimino :
   public Tetrimino
 {
 public:
-  StaticTetrimino();
+  StaticTetrimino(TetriminoShape s, unsigned short * map) : Tetrimino(s, map) {};
   ~StaticTetrimino();
 
-  unsigned char* rotate() { return this->map; };
+  unsigned short* rotate() { return this->map; };
 };
 

@@ -4,10 +4,10 @@ class RotableTetrimino :
   public Tetrimino
 {
 public:
-  RotableTetrimino(Shapes shapeName);
-  ~RotableTetrimino();
+  RotableTetrimino(TetriminoShape s, unsigned short * map) : Tetrimino(s, map) {};
+  ~RotableTetrimino() {};
 
-  unsigned char* rotate();
+  unsigned short* rotate();
 
 };
 
