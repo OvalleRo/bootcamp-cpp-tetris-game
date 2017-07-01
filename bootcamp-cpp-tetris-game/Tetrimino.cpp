@@ -1,12 +1,18 @@
 #include <stdlib.h>
 #include <array>
 #include "Tetrimino.h"
+#include <stdio.h>
+#include <time.h>
 
 
 Tetrimino::Tetrimino(TetriminoShape s, unsigned short * map)
 {
   this->name = s;
   std::copy(map, map + (MAP_LENGTH*MAP_LENGTH), this->map);
+
+  srand(time(NULL));
+  int rndColor = ((rand() % colorCount) + 1);
+  c = (Color)rndColor;
 }
 
 Tetrimino::~Tetrimino()
@@ -23,6 +29,11 @@ unsigned short * Tetrimino::getMap()
   return map;
 }
 
+Tetrimino::Color Tetrimino::getColor()
+{
+  return c;
+}
+
 void Tetrimino::print()
 {
   int pos;
@@ -30,7 +41,7 @@ void Tetrimino::print()
   {
     for (int j = 0; j < MAP_LENGTH; j++)
     {
-      pos = (4 * i) + j;
+      pos = (MAP_LENGTH * i) + j;
       std::cout << " " << this->map[pos];
     }
     std::cout << std::endl;

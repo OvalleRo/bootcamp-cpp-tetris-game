@@ -1,28 +1,31 @@
 #include <SFML/Graphics.hpp>
-
+#include <SFML/Window.hpp>
+#include "TetriminoDrawer.h"
 #include "TetriminoManager.h"
 
 int main()
 {
-  Tetrimino *t;
+
   TetriminoManager mngr{};
-
-  t = mngr.getByName(TetriminoShape::T);
-
-  t->print();
-
-  t->rotate();
-  t->print();
-
-
-  delete t;
-
+  Tetrimino * t;
   t = mngr.getRandom();
-  t->print();
+  
+  sf::RenderWindow window(sf::VideoMode(700, 700), "Ventana", sf::Style::Titlebar | sf::Style::Close);
+  TetriminoDrawer drawer(window);
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+      if (event.type == sf::Event::Closed) {
+        window.close();
+      }
+    }
+    window.clear();
+    drawer.draw(*t);
+    window.display();
+    
 
-  t->rotate();
-  t->print();
-
+  }
 
   return 0;
 }

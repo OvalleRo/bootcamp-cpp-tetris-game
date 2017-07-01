@@ -1,5 +1,7 @@
 #include "TetriminoManager.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 
 TetriminoManager::TetriminoManager()
@@ -54,6 +56,7 @@ TetriminoManager::~TetriminoManager()
 
 Tetrimino * TetriminoManager::getRandom()
 {
+  srand(time(NULL));
   int rnd = rand() % TetriminoShape::COUNT;
   return tetriminos[rnd];
 }
