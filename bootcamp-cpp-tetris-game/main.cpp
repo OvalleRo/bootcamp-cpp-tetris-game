@@ -19,6 +19,13 @@ int main()
       if (event.type == sf::Event::Closed) {
         window.close();
       }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        t->rotate();
+      }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        t = mngr.getRandom();
+      }
+
     }
     window.clear();
     drawer.draw(*t);

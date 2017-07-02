@@ -34,11 +34,14 @@ protected:
 public:
 
   Tetrimino() {};
-  Tetrimino(TetriminoShape s, unsigned short * map);
+  //The shape is one of the posible defined in the corresponding enum
+  //The map is an MAP_LENGTH**2 array that defines the Tetromino's shape
+  Tetrimino(TetriminoShape s, unsigned short * map, Tetrimino::Color c);
   ~Tetrimino();
 
   TetriminoShape getShape();
   unsigned short* getMap();
+  //Up to the children classes to define it...
   virtual unsigned short* rotate() =0;
   Color getColor();
   

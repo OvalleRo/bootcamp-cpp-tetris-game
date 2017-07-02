@@ -5,14 +5,12 @@
 #include <time.h>
 
 
-Tetrimino::Tetrimino(TetriminoShape s, unsigned short * map)
+Tetrimino::Tetrimino(TetriminoShape s, unsigned short * map, Tetrimino::Color c)
 {
   this->name = s;
   std::copy(map, map + (MAP_LENGTH*MAP_LENGTH), this->map);
 
-  srand(time(NULL));
-  int rndColor = ((rand() % colorCount) + 1);
-  c = (Color)rndColor;
+  this->c = c;
 }
 
 Tetrimino::~Tetrimino()
