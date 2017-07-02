@@ -58,7 +58,8 @@ TetriminoManager::TetriminoManager()
                             };
   tetriminos[TetriminoShape::LINE] = new RotableTetrimino(TetriminoShape::LINE, line, Tetrimino::ORANGE);
 
-
+  //Generate seed for the getRandom() method
+  srand(time(NULL));
 }
 
 
@@ -68,7 +69,7 @@ TetriminoManager::~TetriminoManager()
 
 Tetrimino * TetriminoManager::getRandom()
 {
-  srand(time(NULL));
+  
   int rnd = rand() % TetriminoShape::COUNT;
   return tetriminos[rnd];
 }

@@ -38,6 +38,9 @@
     <ClCompile Include="TetriminoDrawer.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="TetrisBoard.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tetrimino.h">
@@ -56,6 +59,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TetriminoDrawer.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="TetrisBoard.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,14 +2,14 @@
 #include <SFML/Window.hpp>
 #include "TetriminoDrawer.h"
 #include "TetriminoManager.h"
+#include "TetrisBoard.h"
 
-int main()
-{
+void draw() {
 
   TetriminoManager mngr{};
   Tetrimino * t;
   t = mngr.getRandom();
-  
+
   sf::RenderWindow window(sf::VideoMode(700, 700), "Ventana", sf::Style::Titlebar | sf::Style::Close);
   TetriminoDrawer drawer(window);
   while (window.isOpen()) {
@@ -30,9 +30,28 @@ int main()
     window.clear();
     drawer.draw(*t);
     window.display();
-    
+
 
   }
+}
+
+int main()
+{
+  TetrisBoard * b = new TetrisBoard(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
+  //b->print();
+
+  TetriminoManager mngr{};
+  Tetrimino * t;
+  t = mngr.getByName(TetriminoShape::SQUARE);
+
+  if (!b->insertTetrimino(*t)) {
+    std::cout << "Can't insert the tetrimino";
+  }
+  else
+  {
+    b->print();
+  }
+
 
   return 0;
 }

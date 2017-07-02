@@ -128,6 +128,7 @@
     <ClCompile Include="Tetrimino.cpp" />
     <ClCompile Include="TetriminoDrawer.cpp" />
     <ClCompile Include="TetriminoManager.cpp" />
+    <ClCompile Include="TetrisBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RotableTetrimino.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="TetriminoDrawer.h" />
     <ClInclude Include="TetriminoManager.h" />
     <ClInclude Include="TetriminoShape.h" />
+    <ClInclude Include="TetrisBoard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
