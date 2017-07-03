@@ -47,12 +47,12 @@ TetrisBoard::~TetrisBoard()
 
 unsigned short TetrisBoard::getRows()
 {
-  return rows - safetyPadding;
+  return rows;
 }
 
 unsigned short TetrisBoard::getColumns()
 {
-  return columns - (safetyPadding * 2);
+  return columns;
 }
 
 short TetrisBoard::getPaddingValue()
@@ -65,7 +65,7 @@ short TetrisBoard::getSize()
   return size;
 }
 
-vector<short> TetrisBoard::getBoardMap()
+const vector<short> TetrisBoard::getBoardMap() const
 {
   return boardMapVector;
 }
@@ -80,6 +80,7 @@ std::tuple<short, short> TetrisBoard::get2DPosition(short pos)
 bool TetrisBoard::insertTetrimino(Tetrimino & t)
 {
   unsigned short * tetriminoMap = t.getMap();
+  unsigned short color = t.getColor();
   vector<short>  newBoardMapVector = boardMapVector;
 
   //  Set the position of the tetromino in any VALID place of the
@@ -95,7 +96,7 @@ bool TetrisBoard::insertTetrimino(Tetrimino & t)
 
       tetriminoMapPosition = ((safetyPadding + 1) *i) + j;
       boardMapPosition = (columns * i) + get<1>(currentTetrominoPos) + j;
-      newBoardMapVector[boardMapPosition] += tetriminoMap[tetriminoMapPosition];
+      newBoardMapVector[boardMapPosition] += (tetriminoMap[tetriminoMapPosition] * color);
     }
   }
   if (!checkCollision()) {

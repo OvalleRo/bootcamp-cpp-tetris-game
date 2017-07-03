@@ -43,7 +43,7 @@ public:
   short getPaddingValue();
   short getSize();
 
-  std::vector<short> getBoardMap();
+  const std::vector<short> getBoardMap() const;
   std::tuple<short, short> get2DPosition(short pos);
   
   bool moveTetrimino(TetrisBoard::MovementDirection dir);
