@@ -126,7 +126,6 @@
     <ClCompile Include="RotableTetrimino.cpp" />
     <ClCompile Include="StaticTetrimino.cpp" />
     <ClCompile Include="Tetrimino.cpp" />
-    <ClCompile Include="TetriminoDrawer.cpp" />
     <ClCompile Include="TetriminoManager.cpp" />
     <ClCompile Include="TetrisBoard.cpp" />
     <ClCompile Include="TetrisDrawer.cpp" />
@@ -135,7 +134,6 @@
     <ClInclude Include="RotableTetrimino.h" />
     <ClInclude Include="StaticTetrimino.h" />
     <ClInclude Include="Tetrimino.h" />
-    <ClInclude Include="TetriminoDrawer.h" />
     <ClInclude Include="TetriminoManager.h" />
     <ClInclude Include="TetriminoShape.h" />
     <ClInclude Include="TetrisBoard.h" />
