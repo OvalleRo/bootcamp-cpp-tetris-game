@@ -15,7 +15,7 @@ int main()
 
   t = mngr.getRandom();
 
-  if (!b->insertTetrimino(*t)) {
+  if (!b->insertNewTetrimino(*t)) {
     std::cout << "Can't insert the tetrimino";
   }
   else
@@ -30,7 +30,15 @@ int main()
         if (event.type == sf::Event::Closed) {
           window.close();
         }
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+          b->moveTetrimino(TetrisBoard::DOWN);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+          b->moveTetrimino(TetrisBoard::LEFT);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+          b->moveTetrimino(TetrisBoard::RIGHT);
+        }
       }
       window.clear(sf::Color::White);
       

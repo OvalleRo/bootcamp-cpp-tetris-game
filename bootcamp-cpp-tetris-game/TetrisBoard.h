@@ -18,12 +18,13 @@ public:
 
 private:
 
-  unsigned short rows, columns, safetyPadding, size;
+  unsigned short rows, columns, safetyPadding, size, coordinates;
   //The coordinates in the map of the falling tetromino - it's top-left corner, in terms of row/col
   std::tuple<short, short> currentTetrominoPos;
   short backgroundValue, paddingValue;
   short * rowsStatii;
-  std::vector<short> boardMapVector;
+  std::vector<short> boardMapVector, tetriminoCoordinatesVector;
+  Tetrimino * currentTetrimino;
 
 public:
   /*
@@ -47,7 +48,7 @@ public:
   std::tuple<short, short> get2DPosition(short pos);
   
   bool moveTetrimino(TetrisBoard::MovementDirection dir);
-  bool insertTetrimino(Tetrimino & t);
+  bool insertNewTetrimino(Tetrimino & t);
   bool fixCurrentTetrominoInPosition();
 
   bool clearRow(short rowToClear);
@@ -58,5 +59,7 @@ public:
 
 private:
   bool checkCollision();
+  bool moveTetrimino(short rowDelta, short colDelta);
+  void resetTetrominoCoordinates();
 };
 
