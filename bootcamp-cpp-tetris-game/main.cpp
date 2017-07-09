@@ -19,7 +19,7 @@ int main()
   TetrisDrawer drawer(*window, *board);
 
   t = mngr.getRandom();
-  mover.insertNewTetrimino(*t);
+  mover.insertTetrimino(*t);
 
   while (window->isOpen())
   {

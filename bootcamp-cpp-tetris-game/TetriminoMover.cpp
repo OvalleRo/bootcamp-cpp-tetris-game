@@ -44,7 +44,7 @@ bool TetriminoMover::moveTetrimino(MovementDirection dir)
 
 }
 
-bool TetriminoMover::insertNewTetrimino(Tetrimino & t)
+bool TetriminoMover::insertTetrimino(Tetrimino & t)
 {
   resetMover();
 
@@ -53,34 +53,13 @@ bool TetriminoMover::insertNewTetrimino(Tetrimino & t)
   currentTetrimino = &t;
   
   unsigned short initialCol = (board->getColumns() / 2) - (Tetrimino::MAP_LENGTH / 2);
-  unsigned short index = 0;
 
-  Board::Coordinates coord;
-  for (int row = 0; row < Tetrimino::MAP_LENGTH; row++)
-  {
-    for (int col = 0; col < Tetrimino::MAP_LENGTH; col++)
-    {
-      short tetriminoMapPosition, boardMapPosition;
-
-      coord.x = row;
-      coord.y = col + initialCol;
-
-      tetriminoMapPosition = (Tetrimino::MAP_LENGTH * row) + col;
-
-      if (tetriminoMap[tetriminoMapPosition] != board->getBackgroundValue()) {
-        if (!checkCollisionOnCoordinate(coord)) {
-          currentTetriminoPosition.add(index, coord);
-          ++index;
-        }
-        else {
-          resetMover();
-          return false;
-        }
-      }
-
-    }
+  if (!insertTetrimino(0, initialCol, tetriminoMap)) {
+    resetMover();
+    return false;
   }
-  for (int i = 0; i < index + 1; i++)
+
+  for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
   {
     board->setValue(currentTetriminoPosition.getCoordinateAt(i), currentTetrimino->getColor());
   }
@@ -153,4 +132,36 @@ void TetriminoMover::resetMover()
   currentTetrimino = nullptr;
   currentTetriminoPosition = TetriminoPosition();
   
+}
+
+bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short initialCol, unsigned short * tetriminoMap)
+{
+  unsigned short index = 0;
+
+  Board::Coordinates coord;
+  for (int row = 0; row < Tetrimino::MAP_LENGTH; row++)
+  {
+    for (int col = 0; col < Tetrimino::MAP_LENGTH; col++)
+    {
+      short tetriminoMapPosition, boardMapPosition;
+
+      coord.x = row + initialRow;
+      coord.y = col + initialCol;
+
+      tetriminoMapPosition = (Tetrimino::MAP_LENGTH * row) + col;
+
+      if (tetriminoMap[tetriminoMapPosition] != board->getBackgroundValue()) {
+        if (!checkCollisionOnCoordinate(coord)) {
+          currentTetriminoPosition.add(index, coord);
+          ++index;
+        }
+        else {
+          //resetMover();
+          return false;
+        }
+      }
+
+    }
+  }
+  return true;
 }

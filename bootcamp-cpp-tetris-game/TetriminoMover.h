@@ -24,7 +24,7 @@ public:
 
   bool moveTetrimino(MovementDirection dir);
 
-  bool insertNewTetrimino(Tetrimino &t);
+  bool insertTetrimino(Tetrimino &t);
 
 private:
   //Check collision on current position
@@ -35,5 +35,6 @@ private:
   //Sets the position to the default
   // and the currentTetrimino pointer to nothing
   void resetMover();
+  bool insertTetrimino(unsigned short initialRow, unsigned short initialCol, unsigned short * tetriminoMap);
 };
 
