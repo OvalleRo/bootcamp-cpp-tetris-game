@@ -53,3 +53,50 @@ void Board::resetBoardVector()
     }
   }
 }
+
+const std::vector<short> * Board::getBoard() const
+{
+  return &boardMapVector;
+}
+
+void Board::setBoard(std::vector<short> board)
+{
+  boardMapVector = board;
+}
+
+unsigned short Board::getColumns()
+{
+  return columns;
+}
+
+unsigned short Board::getRows()
+{
+  return rows;
+}
+
+short Board::getBackgroundValue()
+{
+  return backgroundValue;
+}
+
+short Board::getPaddingValue()
+{
+  return paddingValue;
+}
+
+short Board::getValue(Board::Coordinates c)
+{
+  return boardMapVector[getLinearPositionInBoardVector(c)];
+}
+
+short Board::getValue(unsigned short position)
+{
+  return boardMapVector[position];
+}
+
+void Board::setValue(Board::Coordinates coord, short color)
+{
+  boardMapVector[getLinearPositionInBoardVector(coord)] = color;
+}
+
+

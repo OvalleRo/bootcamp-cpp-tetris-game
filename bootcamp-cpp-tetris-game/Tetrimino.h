@@ -41,6 +41,7 @@ public:
 
   TetriminoShape getShape();
   unsigned short* getMap();
+  void setMap(unsigned short* newMap);
   //Up to the children classes to define it...
   virtual unsigned short* rotate() =0;
   Color getColor();

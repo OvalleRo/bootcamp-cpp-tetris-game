@@ -3,54 +3,49 @@
 
 #include "TetrisDrawer.h"
 #include "TetriminoManager.h"
-#include "TetrisBoard.h"
+#include "TetriminoMover.h"
+#include "Board.h"
+
 
 int main()
 {
-  TetrisBoard * b = new TetrisBoard(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
-  //b->print();
+  short winHeight = 900, winWidth = 1200;
 
+  sf::RenderWindow * window = new sf::RenderWindow(sf::VideoMode(winWidth, winHeight), "Ventana", sf::Style::Titlebar | sf::Style::Close);
   TetriminoManager mngr{};
   Tetrimino * t;
+  Board * board = new Board(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
+  TetriminoMover mover(*board);
+  TetrisDrawer drawer(*window, *board);
 
   t = mngr.getRandom();
+  mover.insertNewTetrimino(*t);
 
-  if (!b->insertNewTetrimino(*t)) {
-    std::cout << "Can't insert the tetrimino";
-  }
-  else
+  while (window->isOpen())
   {
-
-    sf::RenderWindow window(sf::VideoMode(700, 700), "Ventana", sf::Style::Titlebar | sf::Style::Close);
-    TetrisDrawer drawer(window, *b);
-    while (window.isOpen()) {
-      sf::Event event;
-      while (window.pollEvent(event))
+    sf::Event event;
+    while (window->pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
       {
-        if (event.type == sf::Event::Closed) {
-          window.close();
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-          b->moveTetrimino(TetrisBoard::DOWN);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-          b->moveTetrimino(TetrisBoard::LEFT);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-          b->moveTetrimino(TetrisBoard::RIGHT);
-        }
+        window->close();
       }
-      window.clear(sf::Color::White);
-      
-      drawer.draw();
-      window.display();
-
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+      {
+        mover.moveTetrimino(TetriminoMover::DOWN);
+      }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+      {
+        mover.moveTetrimino(TetriminoMover::LEFT);
+      }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+      {
+        mover.moveTetrimino(TetriminoMover::RIGHT);
+      }
 
     }
+    window->clear(sf::Color::White);
+    drawer.draw();
+    window->display();
   }
-
-  
-
-
   return 0;
 }

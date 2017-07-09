@@ -27,6 +27,11 @@ unsigned short * Tetrimino::getMap()
   return map;
 }
 
+void Tetrimino::setMap(unsigned short * newMap)
+{
+  std::copy(newMap, newMap + (MAP_LENGTH*MAP_LENGTH), this->map);
+}
+
 Tetrimino::Color Tetrimino::getColor()
 {
   return c;

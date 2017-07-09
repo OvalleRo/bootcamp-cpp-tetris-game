@@ -122,22 +122,30 @@
     <ResourceCompile Include="bootcamp-cpp-tetris-game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RotableTetrimino.cpp" />
     <ClCompile Include="StaticTetrimino.cpp" />
     <ClCompile Include="Tetrimino.cpp" />
     <ClCompile Include="TetriminoManager.cpp" />
+    <ClCompile Include="TetriminoMover.cpp" />
+    <ClCompile Include="TetriminoPosition.cpp" />
     <ClCompile Include="TetrisBoard.cpp" />
     <ClCompile Include="TetrisDrawer.cpp" />
+    <ClCompile Include="TetrisGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="RotableTetrimino.h" />
     <ClInclude Include="StaticTetrimino.h" />
     <ClInclude Include="Tetrimino.h" />
     <ClInclude Include="TetriminoManager.h" />
+    <ClInclude Include="TetriminoMover.h" />
+    <ClInclude Include="TetriminoPosition.h" />
     <ClInclude Include="TetriminoShape.h" />
     <ClInclude Include="TetrisBoard.h" />
     <ClInclude Include="TetrisDrawer.h" />
+    <ClInclude Include="TetrisGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
