@@ -20,12 +20,15 @@ private:
   Tetrimino * currentTetrimino;
 
 public:
+  TetriminoMover() {};
   TetriminoMover(Board &board);
   ~TetriminoMover();
 
   bool moveTetrimino(MovementDirection dir);
 
   bool insertTetrimino(Tetrimino &t);
+
+  const TetriminoPosition getCurrentPosition();
 
 private:
   //Check collision on current position

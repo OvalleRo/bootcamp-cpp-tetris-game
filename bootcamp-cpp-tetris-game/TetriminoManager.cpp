@@ -44,9 +44,9 @@ TetriminoManager::TetriminoManager()
                         };
   tetriminos[TetriminoShape::L] = new RotableTetrimino(TetriminoShape::L, l, Tetrimino::RED);
   unsigned short il[] = { 
-                          0, 0, 0, 1,
-                          0, 0, 0, 1,
-                          0, 0, 1, 1,
+                          0, 1, 0, 0,
+                          0, 1, 0, 0,
+                          1, 1, 0, 0,
                           0, 0, 0, 0
                         };
   tetriminos[TetriminoShape::INVERSE_L] = new RotableTetrimino(TetriminoShape::INVERSE_L, il, Tetrimino::RED);

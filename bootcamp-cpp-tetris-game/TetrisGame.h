@@ -1,40 +1,39 @@
 #pragma once
-#include "Board.h"
-#include "TetriminoManager.h"
-#include "TetriminoPosition.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
-#include "SFML\Graphics.hpp"
+#include "TetrisDrawer.h"
+#include "TetriminoManager.h"
+#include "TetriminoMover.h"
+#include "Board.h"
 
 class TetrisGame
 {
 
 private:
-  Board * b;
-  TetriminoManager manager;
+  Board * board;
+  TetriminoManager mngr;
   sf::RenderWindow * window;
   Tetrimino * current, * next;
-  float waitTimeMiliseconds;
+  float waitTimeMilliseconds;
   TetriminoPosition currentPosition;
+  TetriminoMover mover;
+  short winHeight, winWidth, level;
+  TetrisDrawer * drawer;
 
 public:
   TetrisGame();
   ~TetrisGame();
 
   //Start a new game of tetris, principal method (controlling I/O)
+  void startGame();
 
-  //Pause the game
-
-  //Insert tetrimino as the current one, generate next
-
+private:
   //Increase level
-
-  //Move tetrimino to the left, right, down
-
-  //Rotate tetrimino
-
-  //Check collision
+  void nextLevel();
 
   //Update line status
+  void updateLine();
 
   //Check if a line if full
 

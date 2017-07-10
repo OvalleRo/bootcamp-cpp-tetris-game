@@ -68,6 +68,11 @@ bool TetriminoMover::insertTetrimino(Tetrimino & t)
   return true;
 }
 
+const TetriminoPosition TetriminoMover::getCurrentPosition()
+{
+  return currentTetriminoPosition;
+}
+
 bool TetriminoMover::checkCollisionOnCurrentPosition()
 {
   return false;
