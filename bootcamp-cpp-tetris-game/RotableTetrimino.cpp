@@ -3,7 +3,7 @@
 
 unsigned short * RotableTetrimino::rotate()
 {
-  unsigned short new_map[MAP_LENGTH*MAP_LENGTH];
+  unsigned short * new_map = new unsigned short[MAP_LENGTH*MAP_LENGTH];
   int x, y, pos, new_x, new_y;
   int minX, minY;
   minX = minY = MAP_LENGTH;
@@ -40,7 +40,8 @@ unsigned short * RotableTetrimino::rotate()
     }
   }
 
-  std::copy(new_map, new_map + (MAP_LENGTH*MAP_LENGTH), this->map);
+  //std::copy(new_map, new_map + (MAP_LENGTH*MAP_LENGTH), this->map);
   
-  return this->map;
+  //return this->map;
+  return new_map;
 }

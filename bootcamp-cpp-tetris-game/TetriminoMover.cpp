@@ -127,10 +127,10 @@ bool TetriminoMover::rotate()
 {
   unsigned short * rotatedMap = currentTetrimino->rotate();
   unsigned short initialRow, initialCol;
-  TetriminoPosition lastPosition = currentTetriminoPosition;
+  TetriminoPosition lastPosition(currentTetriminoPosition);
   initialRow = pivot.x;
   initialCol = pivot.y;
-  if (insertTetrimino(initialRow,initialCol, rotatedMap))
+  if (insertTetrimino(initialRow, initialCol, rotatedMap))
   {
     currentTetrimino->setMap(rotatedMap);
     for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
@@ -146,7 +146,7 @@ bool TetriminoMover::rotate()
     return true;
   }
   else {
-    currentTetriminoPosition = lastPosition;
+    //currentTetriminoPosition = lastPosition;
     return false;
   }
 }
@@ -163,6 +163,7 @@ void TetriminoMover::resetMover()
 bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short initialCol, unsigned short * tetriminoMap)
 {
   unsigned short index = 0;
+  TetriminoPosition nextPosition;
 
   Board::Coordinates coord;
   for (int row = 0; row < Tetrimino::MAP_LENGTH; row++)
@@ -178,7 +179,7 @@ bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short i
 
       if (tetriminoMap[tetriminoMapPosition] != board->getBackgroundValue()) {
         if (!checkCollisionOnCoordinate(coord)) {
-          currentTetriminoPosition.add(index, coord);
+          nextPosition.add(index, coord);
           ++index;
         }
         else {
@@ -188,6 +189,7 @@ bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short i
 
     }
   }
+  currentTetriminoPosition = nextPosition;
   return true;
 }
 
