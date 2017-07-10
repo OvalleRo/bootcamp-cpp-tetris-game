@@ -63,6 +63,8 @@ bool TetriminoMover::insertTetrimino(Tetrimino & t)
   {
     board->setValue(currentTetriminoPosition.getCoordinateAt(i), currentTetrimino->getColor());
   }
+  changeRotationPivot();
+
   return true;
 }
 
@@ -117,20 +119,44 @@ bool TetriminoMover::changePositionByDeltas(short rowDelta, short colDelta)
     board->setValue(next.getCoordinateAt(i), currentTetrimino->getColor());
   }
   currentTetriminoPosition = next;
+  changeRotationPivot();
   return true;
 }
 
 bool TetriminoMover::rotate()
 {
   unsigned short * rotatedMap = currentTetrimino->rotate();
-
-  return false;
+  unsigned short initialRow, initialCol;
+  TetriminoPosition lastPosition = currentTetriminoPosition;
+  initialRow = pivot.x;
+  initialCol = pivot.y;
+  if (insertTetrimino(initialRow,initialCol, rotatedMap))
+  {
+    currentTetrimino->setMap(rotatedMap);
+    for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
+    {
+      //Clears last position (as long as it's not part of the next), and sets the corresponding
+      //values in the next coordinates
+      if (!currentTetriminoPosition.isTetriminoCoordinate(lastPosition.getCoordinateAt(i)))
+      {
+        board->setValue(lastPosition.getCoordinateAt(i), board->getBackgroundValue());
+      }
+      board->setValue(currentTetriminoPosition.getCoordinateAt(i), currentTetrimino->getColor());
+    }
+    return true;
+  }
+  else {
+    currentTetriminoPosition = lastPosition;
+    return false;
+  }
 }
 
 void TetriminoMover::resetMover()
 {
   currentTetrimino = nullptr;
   currentTetriminoPosition = TetriminoPosition();
+  pivot.x = 0;
+  pivot.y = 0;
   
 }
 
@@ -156,7 +182,6 @@ bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short i
           ++index;
         }
         else {
-          //resetMover();
           return false;
         }
       }
@@ -164,4 +189,21 @@ bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short i
     }
   }
   return true;
+}
+
+void TetriminoMover::changeRotationPivot()
+{
+  int x = board->getRows(), y = board->getColumns();
+  for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
+  {
+    Board::Coordinates coord = currentTetriminoPosition.getCoordinateAt(i);
+    if (coord.x < x) {
+      x = coord.x;
+    }
+    if (coord.y < y) {
+      y = coord.y;
+    }
+  }
+  pivot.x = x;
+  pivot.y = y;
 }

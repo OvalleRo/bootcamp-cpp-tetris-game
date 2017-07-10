@@ -18,7 +18,7 @@ int main()
   TetriminoMover mover(*board);
   TetrisDrawer drawer(*window, *board);
 
-  t = mngr.getRandom();
+  t = mngr.getByName(T);
   mover.insertTetrimino(*t);
 
   while (window->isOpen())
@@ -41,7 +41,10 @@ int main()
       {
         mover.moveTetrimino(TetriminoMover::RIGHT);
       }
-
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+      {
+        mover.moveTetrimino(TetriminoMover::UP);
+      }
     }
     window->clear(sf::Color::White);
     drawer.draw();

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-
+//The map should have MAP_LENGTH > 0 values and (MAP_LENGTH)2 - MAP_LENGHT zeroes.
 Tetrimino::Tetrimino(TetriminoShape s, unsigned short * map, Tetrimino::Color c)
 {
   this->name = s;

@@ -16,6 +16,7 @@ public:
 private:
   Board * board;
   TetriminoPosition currentTetriminoPosition;
+  Board::Coordinates pivot; //For the rotation
   Tetrimino * currentTetrimino;
 
 public:
@@ -36,5 +37,7 @@ private:
   // and the currentTetrimino pointer to nothing
   void resetMover();
   bool insertTetrimino(unsigned short initialRow, unsigned short initialCol, unsigned short * tetriminoMap);
+  void changeRotationPivot();
+
 };
 
