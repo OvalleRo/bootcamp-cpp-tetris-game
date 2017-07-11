@@ -35,7 +35,7 @@ TetriminoManager::TetriminoManager()
                           0, 0, 0, 0,
                           0, 0, 0, 0
                         };
-  tetriminos[TetriminoShape::INVERSE_S] = new RotableTetrimino(TetriminoShape::INVERSE_S, is, Tetrimino::GREEN);
+  tetriminos[TetriminoShape::INVERSE_S] = new RotableTetrimino(TetriminoShape::INVERSE_S, is, Tetrimino::PURPLE);
   unsigned short l[] = {
                         1, 0, 0, 0,
                         1, 0, 0, 0,
@@ -49,7 +49,7 @@ TetriminoManager::TetriminoManager()
                           1, 1, 0, 0,
                           0, 0, 0, 0
                         };
-  tetriminos[TetriminoShape::INVERSE_L] = new RotableTetrimino(TetriminoShape::INVERSE_L, il, Tetrimino::RED);
+  tetriminos[TetriminoShape::INVERSE_L] = new RotableTetrimino(TetriminoShape::INVERSE_L, il, Tetrimino::CYAN);
   unsigned short line[] = { 
                             1, 0, 0, 0,
                             1, 0, 0, 0,

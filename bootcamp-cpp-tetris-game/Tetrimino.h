@@ -19,7 +19,9 @@ public:
     GREEN,
     ORANGE,
     RED,
-    YELLOW
+    YELLOW,
+    PURPLE,
+    CYAN
 
   };
 
@@ -29,7 +31,7 @@ protected:
   unsigned short map[MAP_LENGTH*MAP_LENGTH];
   Color c;
 
-  const int colorCount = 5;
+  //const int COLOR_COUNT = 7;
 
 public:
 

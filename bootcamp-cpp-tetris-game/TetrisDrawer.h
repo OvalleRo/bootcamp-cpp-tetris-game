@@ -6,7 +6,7 @@ class TetrisDrawer
 {
 private:
   sf::RenderWindow *window;
-  const char * TEXTURE_DIR = "../resources/textures/allBlocks_40_40_6.png";
+  const char * TEXTURE_DIR = "../resources/textures/allBlocks_40_40_8.png";
   const char * BACKGROUND_DIR = "../resources/backgrounds/background_blocks_pattern.png";
   const int TEXTURE_WIDTH = 40;
   Board * board;
