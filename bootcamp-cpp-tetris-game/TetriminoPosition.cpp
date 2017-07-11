@@ -24,6 +24,11 @@ Board::Coordinates TetriminoPosition::getCoordinateAt(unsigned short position)
   return blocksPositions.front();
 }
 
+unsigned short TetriminoPosition::getNoOfCoordinates()
+{
+  return blocksPositions.size();
+}
+
 bool TetriminoPosition::isTetriminoCoordinate(Board::Coordinates coord)
 {
   if (std::count(blocksPositions.begin(), blocksPositions.end(), coord) == 0) {

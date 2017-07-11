@@ -69,7 +69,7 @@ TetriminoManager::~TetriminoManager()
 
 Tetrimino * TetriminoManager::getRandom()
 {
-  
+  srand(time(NULL));
   int rnd = rand() % TetriminoShape::COUNT;
   return tetriminos[rnd];
 }

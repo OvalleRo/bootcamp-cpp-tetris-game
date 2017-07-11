@@ -40,6 +40,8 @@ public:
 
   unsigned short getColumns();
   unsigned short getRows();
+  unsigned short getUsableRows(); //The amount of rows where blocks can be put..
+  unsigned short getUsableColumns(); //The amount of rows where blocks can be put..
 
   short getBackgroundValue();
   short getPaddingValue();

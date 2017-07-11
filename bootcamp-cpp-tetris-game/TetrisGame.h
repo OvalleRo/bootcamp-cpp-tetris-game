@@ -6,12 +6,14 @@
 #include "TetriminoManager.h"
 #include "TetriminoMover.h"
 #include "Board.h"
+#include "BoardLineManager.h"
 
 class TetrisGame
 {
 
 private:
   Board * board;
+  BoardLineManager lineMngr;
   TetriminoManager mngr;
   sf::RenderWindow * window;
   Tetrimino * current, * next;
@@ -19,7 +21,11 @@ private:
   TetriminoPosition currentPosition;
   TetriminoMover mover;
   short winHeight, winWidth, level;
+  int score;
   TetrisDrawer * drawer;
+
+  const short LINES_TO_NEXT_LEVEL = 10,
+              SCORE_PER_LINE = 10;
 
 public:
   TetrisGame();
@@ -31,16 +37,9 @@ public:
 private:
   //Increase level
   void nextLevel();
-
-  //Update line status
-  void updateLine();
-
-  //Check if a line if full
-
-  //Empty the given line, rearrenge the board accordingly
-
   //Update the score
-
-  //Get the score
+  void updateScore(short lines);
+  //Game over
+  void gameOver();
 };
 

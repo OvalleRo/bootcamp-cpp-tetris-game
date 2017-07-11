@@ -74,6 +74,16 @@ unsigned short Board::getRows()
   return rows;
 }
 
+unsigned short Board::getUsableRows()
+{
+  return rows - safetyPadding;
+}
+
+unsigned short Board::getUsableColumns()
+{
+  return columns - (safetyPadding * 2);
+}
+
 short Board::getBackgroundValue()
 {
   return backgroundValue;

@@ -11,6 +11,6 @@ public:
   ~TetriminoPosition();
   void add(unsigned short order, Board::Coordinates coord);
   Board::Coordinates getCoordinateAt(unsigned short position);
-
+  unsigned short getNoOfCoordinates();
   bool isTetriminoCoordinate(Board::Coordinates coord);
 };

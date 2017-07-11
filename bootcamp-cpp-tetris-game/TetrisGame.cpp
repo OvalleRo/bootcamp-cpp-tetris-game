@@ -9,9 +9,11 @@ TetrisGame::TetrisGame()
   board = new Board(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
   mover = TetriminoMover(*board);
   drawer = new TetrisDrawer(*window, *board);
+  lineMngr = BoardLineManager(*board);
 
   waitTimeMilliseconds = 2000;
   level = 1;
+  score = 0;
 }
 
 TetrisGame::~TetrisGame()
@@ -30,6 +32,8 @@ void TetrisGame::startGame()
   bool tetriminoChangedPosition = false;
   bool paused = false;
 
+  short clearedLines = 0, totalLines = 0;
+
   while (window->isOpen())
   {
     elapsedMilliseconds = gameClock.getElapsedTime().asMilliseconds();
@@ -38,7 +42,24 @@ void TetrisGame::startGame()
         !paused) {
       
       tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
-      
+      if (!tetriminoChangedPosition) {
+        current = next;
+        next = mngr.getRandom();
+        clearedLines = lineMngr.updateLines(currentPosition);
+        totalLines += clearedLines;
+        updateScore(clearedLines);
+        tetriminoChangedPosition = mover.insertTetrimino(*current);
+        if (!tetriminoChangedPosition) {
+          gameOver();
+        }
+        if (totalLines >= LINES_TO_NEXT_LEVEL) {
+
+          totalLines = 0;
+          nextLevel();
+
+        }
+      }
+
       gameClock.restart();
 
     }
@@ -81,5 +102,22 @@ void TetrisGame::startGame()
 
     drawer->draw();
   }
+}
+
+void TetrisGame::nextLevel()
+{
+  ++level;
+  waitTimeMilliseconds *= 0.9f;
+  std::cout << "Level: " << level << " Wait: " << waitTimeMilliseconds << std::endl;
+}
+
+void TetrisGame::updateScore(short lines)
+{
+  score += lines * SCORE_PER_LINE;
+}
+
+void TetrisGame::gameOver() {
+  //Freeze screen, show score
+  std::cout << "Game over" << std::endl;
 }
 
