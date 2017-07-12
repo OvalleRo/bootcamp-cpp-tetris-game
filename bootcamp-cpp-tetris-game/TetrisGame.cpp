@@ -1,13 +1,13 @@
 #include "TetrisGame.h"
 TetrisGame::TetrisGame()
 {
-  winHeight = 900;
-  winWidth = 1200;
-  window = new sf::RenderWindow(sf::VideoMode(winWidth, winHeight), "Tetris", sf::Style::Titlebar | sf::Style::Close);
   mngr = TetriminoManager();
   
   board = new Board(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
   mover = TetriminoMover(*board);
+  winHeight = (board->getUsableRows() + 1) * TetrisDrawer::TEXTURE_WIDTH;
+  winWidth = winHeight * (4.f/3.f);
+  window = new sf::RenderWindow(sf::VideoMode(winWidth, winHeight), "Tetris", sf::Style::Titlebar | sf::Style::Close);
   drawer = new TetrisDrawer(*window, *board);
   lineMngr = BoardLineManager(*board);
 
@@ -23,7 +23,11 @@ TetrisGame::~TetrisGame()
 void TetrisGame::startGame()
 {
   current = mngr.getRandom();
-  next = mngr.getRandom();
+  do
+  {
+    next = mngr.getRandom();
+  } while (current == next);
+
   mover.insertTetrimino(*current);
 
   sf::Clock gameClock;
@@ -100,7 +104,7 @@ void TetrisGame::startGame()
       currentPosition = mover.getCurrentPosition();
     }
 
-    drawer->draw();
+    drawer->draw(level, score, *next);
   }
 }
 

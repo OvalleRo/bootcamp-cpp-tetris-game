@@ -26,19 +26,36 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   background.setSize(sf::Vector2f(BACKGROUND_WIDTH, BACKGROUND_WIDTH));
   background.setTexture(&backgroundTexture);
 
+  if (!gameFont.loadFromFile(FONT_DIR))
+  {
+    //Font error
+    std::cout << "Font error";
+  }
+  gameInfo.setSize(sf::Vector2f(this->window->getSize().x / 3.f, this->window->getSize().y / 6.f));
+  gameInfo.setFillColor(sf::Color(0, 0, 0, 192));
+  gameInfo.setPosition(this->window->getSize().x * (3.f/5.f), this->window->getSize().y / 10.f);
+  gameInfoText.setFont(gameFont);
+  gameInfoText.setCharacterSize(gameInfo.getSize().x/10.f);
+  gameInfoText.setPosition(gameInfo.getPosition().x + gameInfo.getSize().x / 13.f,
+                          gameInfo.getPosition().y + gameInfo.getSize().y / 3.f);
+
 }
 
 TetrisDrawer::~TetrisDrawer()
 {
 }
 
-void TetrisDrawer::draw()
+void TetrisDrawer::draw(short level, int score, Tetrimino & next)
 {
   window->clear(sf::Color::Black);
   
   drawBackground();
 
   drawBoard();
+
+  drawGameInfo(level, score);
+
+  drawNextTetrimino(next);
    
   window->display();
 }
@@ -76,4 +93,18 @@ void TetrisDrawer::drawBoard()
     }
   }
 
+}
+
+void TetrisDrawer::drawGameInfo(short level, int score)
+{
+  std::stringstream ss;
+  ss << "Level " << level << " - Score " << score;
+  gameInfoText.setString(ss.str());
+  
+  window->draw(gameInfo);
+  window->draw(gameInfoText);
+}
+
+void TetrisDrawer::drawNextTetrimino(Tetrimino & next)
+{
 }
