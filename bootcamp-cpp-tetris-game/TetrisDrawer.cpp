@@ -124,4 +124,24 @@ void TetrisDrawer::drawNextTetrimino(Tetrimino & next)
 {
   window->draw(nextTetriminoBox);
   window->draw(nextTetriminoText);
+
+  unsigned short * map = next.getMap();
+  unsigned short color = next.getColor();
+
+  sf::Vector2f startingPosition = nextTetriminoBox.getPosition() +
+                                  sf::Vector2f(TEXTURE_WIDTH * 4, TEXTURE_WIDTH * 2);
+
+  for (int row = 0; row < Tetrimino::MAP_LENGTH; row++)
+  {
+    for (int column = 0; column < Tetrimino::MAP_LENGTH; column++)
+    {
+      int position = (row * Tetrimino::MAP_LENGTH) + column;
+      if (map[position] != 0)
+      {
+        tetrominoSprite.setTextureRect(sf::IntRect(map[position] * TEXTURE_WIDTH * color, 0, TEXTURE_WIDTH, TEXTURE_WIDTH));
+        tetrominoSprite.setPosition(sf::Vector2f(TEXTURE_WIDTH*column + startingPosition.x, TEXTURE_WIDTH*row + startingPosition.y));
+        window->draw(tetrominoSprite);
+      }
+    }
+  }
 }
