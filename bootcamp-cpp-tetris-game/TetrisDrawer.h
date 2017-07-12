@@ -20,7 +20,7 @@ private:
   sf::RectangleShape background, gameInfo, nextTetrimino;
   sf::Texture tetrominoTexture, backgroundTexture;
   sf::Font gameFont;
-  sf::Text gameInfoText;
+  sf::Text gameInfoText, nextTetrimino;
 
 public:
   TetrisDrawer(sf::RenderWindow & window, Board & board);

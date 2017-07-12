@@ -41,5 +41,7 @@ private:
   void updateScore(short lines);
   //Game over
   void gameOver();
+
+  void updateTetriminos();
 };
 

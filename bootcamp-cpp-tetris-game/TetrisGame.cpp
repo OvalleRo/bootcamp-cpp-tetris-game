@@ -14,6 +14,9 @@ TetrisGame::TetrisGame()
   waitTimeMilliseconds = 2000;
   level = 1;
   score = 0;
+
+  current = nullptr;
+  next = nullptr;
 }
 
 TetrisGame::~TetrisGame()
@@ -22,11 +25,7 @@ TetrisGame::~TetrisGame()
 
 void TetrisGame::startGame()
 {
-  current = mngr.getRandom();
-  do
-  {
-    next = mngr.getRandom();
-  } while (current == next);
+  updateTetriminos();
 
   mover.insertTetrimino(*current);
 
@@ -47,8 +46,8 @@ void TetrisGame::startGame()
       
       tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
       if (!tetriminoChangedPosition) {
-        current = next;
-        next = mngr.getRandom();
+        updateTetriminos();
+
         clearedLines = lineMngr.updateLines(currentPosition);
         totalLines += clearedLines;
         updateScore(clearedLines);
@@ -111,8 +110,7 @@ void TetrisGame::startGame()
 void TetrisGame::nextLevel()
 {
   ++level;
-  waitTimeMilliseconds *= 0.9f;
-  std::cout << "Level: " << level << " Wait: " << waitTimeMilliseconds << std::endl;
+  waitTimeMilliseconds *= 0.85f;
 }
 
 void TetrisGame::updateScore(short lines)
@@ -123,5 +121,22 @@ void TetrisGame::updateScore(short lines)
 void TetrisGame::gameOver() {
   //Freeze screen, show score
   std::cout << "Game over" << std::endl;
+}
+
+void TetrisGame::updateTetriminos()
+{
+  if (current == nullptr) {
+
+    current = mngr.getRandom();
+  }
+  else
+  {
+    current = next;
+
+  }
+  do
+  {
+    next = mngr.getRandom();
+  } while (current == next);
 }
 
