@@ -3,7 +3,7 @@
 
 unsigned short * RotableTetrimino::rotate()
 {
-  unsigned short * new_map = new unsigned short[MAP_LENGTH*MAP_LENGTH];
+  unsigned short * new_map = new unsigned short[MAP_LENGTH*MAP_LENGTH]{0};
   int x, y, pos, new_x, new_y;
   int minX, minY;
   minX = minY = MAP_LENGTH;
@@ -31,12 +31,12 @@ unsigned short * RotableTetrimino::rotate()
     return new_map;
   }
   
-  unsigned short * corrected = new unsigned short[MAP_LENGTH*MAP_LENGTH];
+  unsigned short * corrected = new unsigned short[MAP_LENGTH*MAP_LENGTH]{ 0 };
   for (int i = minX; i < MAP_LENGTH; i++)
   {
     for (int j = minY; j < MAP_LENGTH; j++)
     {
-      int pos = (4 * i) + j;
+      pos = (4 * i) + j;
       int newPos = pos - minY - (4 * minX);
 
       corrected[newPos] = new_map[pos];
