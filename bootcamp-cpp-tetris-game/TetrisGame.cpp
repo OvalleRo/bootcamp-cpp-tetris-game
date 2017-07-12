@@ -25,47 +25,50 @@ TetrisGame::~TetrisGame()
 
 void TetrisGame::startGame()
 {
+  gameClock.restart();
+
   updateTetriminos();
 
   mover.insertTetrimino(*current);
-
-  sf::Clock gameClock;
   
   float elapsedMilliseconds;
   bool tetriminoChangedPosition = false;
   bool paused = false;
+  bool gameOver = false;
 
   short clearedLines = 0, totalLines = 0;
 
   while (window->isOpen())
   {
     elapsedMilliseconds = gameClock.getElapsedTime().asMilliseconds();
+    if (!gameOver)
+    {
+      if ((elapsedMilliseconds >= waitTimeMilliseconds && !paused)) {
 
-    if (elapsedMilliseconds >= waitTimeMilliseconds &&
-        !paused) {
-      
-      tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
-      if (!tetriminoChangedPosition) {
-        updateTetriminos();
-
-        clearedLines = lineMngr.updateLines(currentPosition);
-        totalLines += clearedLines;
-        updateScore(clearedLines);
-        tetriminoChangedPosition = mover.insertTetrimino(*current);
+        tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
         if (!tetriminoChangedPosition) {
-          gameOver();
-        }
-        if (totalLines >= LINES_TO_NEXT_LEVEL) {
+          updateTetriminos();
 
-          totalLines = 0;
-          nextLevel();
+          clearedLines = lineMngr.updateLines(currentPosition);
+          totalLines += clearedLines;
+          updateScore(clearedLines);
+          tetriminoChangedPosition = mover.insertTetrimino(*current);
+          if (!tetriminoChangedPosition) {
+            gameOver = true;
+          }
+          if (totalLines >= LINES_TO_NEXT_LEVEL) {
 
+            totalLines = 0;
+            nextLevel();
+
+          }
         }
+
+        gameClock.restart();
+
       }
-
-      gameClock.restart();
-
     }
+    
 
     sf::Event event;
     while (window->pollEvent(event)) {
@@ -74,28 +77,32 @@ void TetrisGame::startGame()
       {
         window->close();
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+      if (!gameOver)
       {
-        tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
-      }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-      {
-        tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::LEFT);
-      }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-      {
-        tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::RIGHT);
-      }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-      {
-        tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::UP);
-      }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-      {
-        //Doesn't work quite well--
-        paused = !paused;
-      }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::LEFT);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::RIGHT);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::UP);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+          //Doesn't work quite well--
+          paused = !paused;
+        }
 
+      }
+      
     }
 
     if (tetriminoChangedPosition) {
@@ -103,7 +110,7 @@ void TetrisGame::startGame()
       currentPosition = mover.getCurrentPosition();
     }
 
-    drawer->draw(level, score, *next);
+    drawer->drawGameScreen(level, score, *next, gameOver);
   }
 }
 
@@ -118,10 +125,6 @@ void TetrisGame::updateScore(short lines)
   score += lines * SCORE_PER_LINE;
 }
 
-void TetrisGame::gameOver() {
-  //Freeze screen, show score
-  std::cout << "Game over" << std::endl;
-}
 
 void TetrisGame::updateTetriminos()
 {

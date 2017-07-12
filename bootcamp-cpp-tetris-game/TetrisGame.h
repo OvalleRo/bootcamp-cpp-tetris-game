@@ -23,6 +23,7 @@ private:
   short winHeight, winWidth, level;
   int score;
   TetrisDrawer * drawer;
+  sf::Clock gameClock;
 
   const short LINES_TO_NEXT_LEVEL = 10,
               SCORE_PER_LINE = 10;
@@ -39,9 +40,6 @@ private:
   void nextLevel();
   //Update the score
   void updateScore(short lines);
-  //Game over
-  void gameOver();
-
   void updateTetriminos();
 };
 

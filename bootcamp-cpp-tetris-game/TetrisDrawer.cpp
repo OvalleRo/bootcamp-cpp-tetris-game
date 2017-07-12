@@ -9,7 +9,7 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   blockScaleFactor = 1.0f;
   //backgroundScaleFactor = blockScaleFactor / 2.0f;
 
-  if (!tetrominoTexture.loadFromFile(TEXTURE_DIR)) {
+  if (!initTexture(tetrominoTexture, TEXTURE_DIR)) {
     //error
     std::cout << "Error tetromino";
   }
@@ -17,7 +17,7 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   tetrominoSprite.setTexture(tetrominoTexture);
   tetrominoSprite.setScale(sf::Vector2f(blockScaleFactor, blockScaleFactor));
 
-  if (!backgroundTexture.loadFromFile(BACKGROUND_DIR)) {
+  if (!initTexture(backgroundTexture, BACKGROUND_DIR)) {
     //error
     std::cout << "Error background";
   }
@@ -26,7 +26,7 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   background.setSize(sf::Vector2f(BACKGROUND_WIDTH, BACKGROUND_WIDTH));
   background.setTexture(&backgroundTexture);
 
-  if (!gameFont.loadFromFile(FONT_DIR))
+  if (!initFont(gameFont, FONT_DIR))
   {
     //Font error
     std::cout << "Font error";
@@ -60,7 +60,7 @@ TetrisDrawer::~TetrisDrawer()
 {
 }
 
-void TetrisDrawer::draw(short level, int score, Tetrimino & next)
+void TetrisDrawer::drawGameScreen(short level, int score, Tetrimino & next, bool gameOver)
 {
   window->clear(sf::Color::Black);
   
@@ -71,8 +71,55 @@ void TetrisDrawer::draw(short level, int score, Tetrimino & next)
   drawGameInfo(level, score);
 
   drawNextTetrimino(next);
+
+  if (gameOver)
+  {
+    drawGameOverSplash();
+  }
    
   window->display();
+}
+
+void TetrisDrawer::drawGameOverSplash()
+{
+  sf::RectangleShape gameOverBox;
+  gameOverBox.setFillColor(sf::Color(0, 0, 0, 192));
+  gameOverBox.setSize(sf::Vector2f(window->getSize()));
+  window->draw(gameOverBox);
+
+  sf::Text gameOverText;
+  gameOverText.setString("Game over!");
+  gameOverText.setCharacterSize(96);
+  gameOverText.setFont(gameFont);
+  gameOverText.setPosition(gameOverBox.getSize().x / 3.f,
+    gameOverBox.getSize().y / 3.f);
+  window->draw(gameOverText);
+}
+
+bool TetrisDrawer::initTexture(sf::Texture & t, const char * dir)
+{
+  // Tries three times to load the texture, if sfml misbehaves,
+  // return false
+  for (int i = 0; i < 3; i++)
+  {
+    if (t.loadFromFile(dir)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool TetrisDrawer::initFont(sf::Font & f, const char * dir)
+{
+  // Tries three times to load the font, if sfml misbehaves,
+    // return false
+    for (int i = 0; i < 3; i++)
+    {
+      if (f.loadFromFile(dir)) {
+        return true;
+      }
+    }
+  return false;
 }
 
 void TetrisDrawer::drawBackground()

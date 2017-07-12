@@ -26,9 +26,15 @@ public:
   TetrisDrawer(sf::RenderWindow & window, Board & board);
   ~TetrisDrawer();
 
-  void draw(short level, int score, Tetrimino & next);
+  void drawGameScreen(short level, int score, Tetrimino & next, bool gameOver);
 
 private:
+  bool initTexture(sf::Texture & t, const char * dir);
+
+  bool initFont(sf::Font & f, const char * dir);
+
+  void drawGameOverSplash();
+  
   void drawBackground();
 
   void drawBoard();
