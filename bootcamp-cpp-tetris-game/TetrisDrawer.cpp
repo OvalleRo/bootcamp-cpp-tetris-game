@@ -22,8 +22,9 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
     std::cout << "Error background";
   }
   backgroundTexture.setRepeated(true);
-  backgroundSprite.setTexture(backgroundTexture);
-  //backgroundSprite.setScale(sf::Vector2f(backgroundScaleFactor, backgroundScaleFactor));
+  backgroundTexture.setSmooth(true);
+  background.setSize(sf::Vector2f(BACKGROUND_WIDTH, BACKGROUND_WIDTH));
+  background.setTexture(&backgroundTexture);
 
 }
 
@@ -39,6 +40,8 @@ void TetrisDrawer::draw()
   int position;
 
   window->clear(sf::Color::White);
+  
+  drawBackground();
 
   for (int i = 0; i < rows ; i++)
   {
@@ -54,4 +57,16 @@ void TetrisDrawer::draw()
   }
  
   window->display();
+}
+
+void TetrisDrawer::drawBackground()
+{
+  for (float i = 0.f; i < window->getSize().x; i+=BACKGROUND_WIDTH)
+  {
+    for (float j = 0.f; j < window->getSize().y; j+=BACKGROUND_WIDTH)
+    {
+      background.setPosition(sf::Vector2f(i, j));
+      window->draw(background);
+    }
+  }
 }
