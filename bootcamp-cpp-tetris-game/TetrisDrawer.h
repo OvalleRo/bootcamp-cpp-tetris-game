@@ -17,10 +17,10 @@ private:
   Board * board;
   float blockScaleFactor, backgroundScaleFactor;
   sf::Sprite tetrominoSprite;
-  sf::RectangleShape background, gameInfo, nextTetrimino;
+  sf::RectangleShape background, gameInfoBox, nextTetriminoBox;
   sf::Texture tetrominoTexture, backgroundTexture;
   sf::Font gameFont;
-  sf::Text gameInfoText, nextTetrimino;
+  sf::Text gameInfoText, nextTetriminoText;
 
 public:
   TetrisDrawer(sf::RenderWindow & window, Board & board);

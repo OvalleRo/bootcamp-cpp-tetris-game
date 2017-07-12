@@ -31,14 +31,29 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
     //Font error
     std::cout << "Font error";
   }
-  gameInfo.setSize(sf::Vector2f(this->window->getSize().x / 3.f, this->window->getSize().y / 6.f));
-  gameInfo.setFillColor(sf::Color(0, 0, 0, 192));
-  gameInfo.setPosition(this->window->getSize().x * (3.f/5.f), this->window->getSize().y / 10.f);
-  gameInfoText.setFont(gameFont);
-  gameInfoText.setCharacterSize(gameInfo.getSize().x/10.f);
-  gameInfoText.setPosition(gameInfo.getPosition().x + gameInfo.getSize().x / 13.f,
-                          gameInfo.getPosition().y + gameInfo.getSize().y / 3.f);
+  //Fill color for the boxes
+  sf::Color boxColor(0, 0, 0, 192);
 
+  gameInfoBox.setSize(sf::Vector2f(this->window->getSize().x / 3.f, this->window->getSize().y / 6.f));
+  gameInfoBox.setFillColor(boxColor);
+  gameInfoBox.setPosition(this->window->getSize().x * (3.f/5.f), this->window->getSize().y / 10.f);
+
+  float textSize = gameInfoBox.getSize().x / 10.f;
+  gameInfoText.setFont(gameFont);
+  gameInfoText.setCharacterSize(textSize);
+  gameInfoText.setPosition(gameInfoBox.getPosition().x + gameInfoBox.getSize().x / 13.f,
+                          gameInfoBox.getPosition().y + gameInfoBox.getSize().y / 3.f);
+
+  nextTetriminoBox.setFillColor(boxColor);
+  nextTetriminoBox.setSize(sf::Vector2f(gameInfoBox.getSize().x, TEXTURE_WIDTH * 7));
+  nextTetriminoBox.setPosition(gameInfoBox.getPosition().x,
+                            gameInfoBox.getPosition().y + (gameInfoBox.getSize().y * 1.5f));
+
+  nextTetriminoText.setCharacterSize(textSize);
+  nextTetriminoText.setFont(gameFont);
+  nextTetriminoText.setString("Next Tetrimino");
+  nextTetriminoText.setPosition(nextTetriminoBox.getPosition().x + nextTetriminoBox.getSize().x / 5.f,
+                              nextTetriminoBox.getPosition().y + nextTetriminoBox.getSize().y / 15.f);
 }
 
 TetrisDrawer::~TetrisDrawer()
@@ -101,10 +116,12 @@ void TetrisDrawer::drawGameInfo(short level, int score)
   ss << "Level " << level << " - Score " << score;
   gameInfoText.setString(ss.str());
   
-  window->draw(gameInfo);
+  window->draw(gameInfoBox);
   window->draw(gameInfoText);
 }
 
 void TetrisDrawer::drawNextTetrimino(Tetrimino & next)
 {
+  window->draw(nextTetriminoBox);
+  window->draw(nextTetriminoText);
 }
