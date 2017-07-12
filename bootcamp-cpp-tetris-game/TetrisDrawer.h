@@ -26,5 +26,7 @@ public:
 private:
   void drawBackground();
 
+  void drawBoard();
+
 };
 

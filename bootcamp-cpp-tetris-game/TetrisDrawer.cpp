@@ -34,28 +34,12 @@ TetrisDrawer::~TetrisDrawer()
 
 void TetrisDrawer::draw()
 {
-  const std::vector<short> * map = board->getBoard();
-  short rows = board->getRows();
-  short columns = board->getColumns();
-  int position;
-
-  window->clear(sf::Color::White);
+  window->clear(sf::Color::Black);
   
   drawBackground();
 
-  for (int i = 0; i < rows ; i++)
-  {
-    for (int j = 0; j < columns ; j++)
-    {
-      position = ((columns)*i) + j;
-      if ((*map)[position] != board->getPaddingValue()) {
-        tetrominoSprite.setTextureRect(sf::IntRect((*map)[position]*TEXTURE_WIDTH, 0, TEXTURE_WIDTH, TEXTURE_WIDTH));
-        tetrominoSprite.setPosition(sf::Vector2f(TEXTURE_WIDTH*j*blockScaleFactor, TEXTURE_WIDTH*i*blockScaleFactor));
-        window->draw(tetrominoSprite);
-      }
-    }
-  }
- 
+  drawBoard();
+   
   window->display();
 }
 
@@ -69,4 +53,27 @@ void TetrisDrawer::drawBackground()
       window->draw(background);
     }
   }
+}
+
+void TetrisDrawer::drawBoard()
+{
+  const std::vector<short> * map = board->getBoard();
+  short rows = board->getRows();
+  short columns = board->getColumns();
+  int position;
+
+
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; j < columns; j++)
+    {
+      position = ((columns)*i) + j;
+      if ((*map)[position] != board->getPaddingValue()) {
+        tetrominoSprite.setTextureRect(sf::IntRect((*map)[position] * TEXTURE_WIDTH, 0, TEXTURE_WIDTH, TEXTURE_WIDTH));
+        tetrominoSprite.setPosition(sf::Vector2f(TEXTURE_WIDTH*j*blockScaleFactor, TEXTURE_WIDTH*i*blockScaleFactor));
+        window->draw(tetrominoSprite);
+      }
+    }
+  }
+
 }
