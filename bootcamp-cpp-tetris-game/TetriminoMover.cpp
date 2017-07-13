@@ -1,5 +1,10 @@
 #include "TetriminoMover.h"
 
+TetriminoMover::TetriminoMover()
+{
+  resetMover();
+}
+
 TetriminoMover::TetriminoMover(Board & board)
 {
   this->board = &board;
@@ -11,29 +16,19 @@ TetriminoMover::~TetriminoMover()
 
 }
 
-bool TetriminoMover::moveTetrimino(MovementDirection dir)
+bool TetriminoMover::moveTetrimino(Direction dir)
 {
   if (currentTetrimino == nullptr) {
     //There is no tetrimino to move
     return false;
   }
-  short rowDelta, colDelta;
+
   switch (dir)
   {
   case DOWN:
-    rowDelta = 1;
-    colDelta = 0;
-    return changePositionByDeltas(rowDelta, colDelta);
-    break;
   case LEFT:
-    rowDelta = 0;
-    colDelta = -1;
-    return changePositionByDeltas(rowDelta, colDelta);
-    break;
   case RIGHT:
-    rowDelta = 0;
-    colDelta = 1;
-    return changePositionByDeltas(rowDelta, colDelta);
+    return changePosition(dir);
     break;
   case UP:
     return rotate();
@@ -73,12 +68,12 @@ const TetriminoPosition TetriminoMover::getCurrentPosition()
   return currentTetriminoPosition;
 }
 
-bool TetriminoMover::checkCollisionOnCurrentPosition()
+void TetriminoMover::setBoard(Board & board)
 {
-  return false;
+  this->board = &board;
 }
 
-bool TetriminoMover::checkCollisionOnCoordinate(Board::Coordinates coord)
+bool TetriminoMover::checkCollisionOnCoordinate(BoardCoordinates coord)
 {
   if (board->getValue(coord) == board->getBackgroundValue()) {
     return false;
@@ -91,20 +86,18 @@ bool TetriminoMover::checkCollisionOnCoordinate(Board::Coordinates coord)
   return true;
 }
 
-bool TetriminoMover::changePositionByDeltas(short rowDelta, short colDelta)
+bool TetriminoMover::changePosition(Direction dir)
 {
   /*
   Given the row and col deltas, the tetromino is moved in the board
   as long as it moves to an empty space (background block or value).
   */
-
-  Board::Coordinates current;
   TetriminoPosition next;
   for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
   {
-    current = currentTetriminoPosition.getCoordinateAt(i);
-    current.x += rowDelta;
-    current.y += colDelta;
+    BoardCoordinates current = currentTetriminoPosition.getCoordinateAt(i)
+                                                        .getCordinateInDirection(dir);
+
     if (!checkCollisionOnCoordinate(current))
     {
       next.add(i, current);
@@ -133,8 +126,8 @@ bool TetriminoMover::rotate()
   unsigned short * rotatedMap = currentTetrimino->rotate();
   unsigned short initialRow, initialCol;
   TetriminoPosition lastPosition(currentTetriminoPosition);
-  initialRow = pivot.x;
-  initialCol = pivot.y;
+  initialRow = pivot.getX();
+  initialCol = pivot.getY();
   if (insertTetrimino(initialRow, initialCol, rotatedMap))
   {
     currentTetrimino->setMap(rotatedMap);
@@ -160,8 +153,8 @@ void TetriminoMover::resetMover()
 {
   currentTetrimino = nullptr;
   currentTetriminoPosition = TetriminoPosition();
-  pivot.x = 0;
-  pivot.y = 0;
+  pivot.setX(0);
+  pivot.setY(0);
   
 }
 
@@ -170,15 +163,15 @@ bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short i
   unsigned short index = 0;
   TetriminoPosition nextPosition;
 
-  Board::Coordinates coord;
+  BoardCoordinates coord;
   for (int row = 0; row < Tetrimino::MAP_LENGTH; row++)
   {
     for (int col = 0; col < Tetrimino::MAP_LENGTH; col++)
     {
       short tetriminoMapPosition, boardMapPosition;
 
-      coord.x = row + initialRow;
-      coord.y = col + initialCol;
+      coord.setX(row + initialRow);
+      coord.setY(col + initialCol);
 
       tetriminoMapPosition = (Tetrimino::MAP_LENGTH * row) + col;
 
@@ -203,14 +196,16 @@ void TetriminoMover::changeRotationPivot()
   int x = board->getRows(), y = board->getColumns();
   for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
   {
-    Board::Coordinates coord = currentTetriminoPosition.getCoordinateAt(i);
-    if (coord.x < x) {
-      x = coord.x;
+    BoardCoordinates coord = currentTetriminoPosition.getCoordinateAt(i);
+    int coordX = coord.getX();
+    int coordY = coord.getY();
+    if (coordX < x) {
+      x = coordX;
     }
-    if (coord.y < y) {
-      y = coord.y;
+    if (coordY < y) {
+      y = coordY;
     }
   }
-  pivot.x = x;
-  pivot.y = y;
+  pivot.setX(x);
+  pivot.setY(y);
 }

@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardCoordinates.cpp" />
     <ClCompile Include="BoardLineManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RotableTetrimino.cpp" />
@@ -133,13 +134,14 @@
     <ClCompile Include="TetriminoManager.cpp" />
     <ClCompile Include="TetriminoMover.cpp" />
     <ClCompile Include="TetriminoPosition.cpp" />
-    <ClCompile Include="TetrisBoard.cpp" />
     <ClCompile Include="TetrisDrawer.cpp" />
     <ClCompile Include="TetrisGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardCoordinates.h" />
     <ClInclude Include="BoardLineManager.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="RotableTetrimino.h" />
     <ClInclude Include="StaticTetrimino.h" />
     <ClInclude Include="Tetrimino.h" />
@@ -147,7 +149,6 @@
     <ClInclude Include="TetriminoMover.h" />
     <ClInclude Include="TetriminoPosition.h" />
     <ClInclude Include="TetriminoShape.h" />
-    <ClInclude Include="TetrisBoard.h" />
     <ClInclude Include="TetrisDrawer.h" />
     <ClInclude Include="TetrisGame.h" />
   </ItemGroup>

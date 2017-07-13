@@ -1,22 +1,8 @@
 #pragma once
 #include <vector>
+#include "BoardCoordinates.h"
 class Board
 {
-public:
-  struct Coordinates
-  {
-    short x;
-    short y;
-
-    inline bool operator==(const Board::Coordinates& rhs) {
-      
-        if (this->x == rhs.x && this->y == rhs.y) {
-          return true;
-        }
-        return false;
-      
-    }
-  };
 
 private:
   unsigned short rows, columns, safetyPadding, size;
@@ -29,9 +15,9 @@ public:
   ~Board();
 
   //Converts a position of the array into it's coordinates in the 2D space
-  Board::Coordinates getCoordinatesInBoard(short position);
+  BoardCoordinates getCoordinatesInBoard(short position);
   //Converts a 2D coordinate into it's position in the linear vector
-  short getLinearPositionInBoardVector(Board::Coordinates c);
+  short getLinearPositionInBoardVector(BoardCoordinates c);
 
   void resetBoardVector();
 
@@ -46,10 +32,10 @@ public:
   short getBackgroundValue();
   short getPaddingValue();
 
-  short getValue(Board::Coordinates c);
+  short getValue(BoardCoordinates c);
   short getValue(unsigned short position);
 
-  void setValue(Board::Coordinates coord, short color);
+  void setValue(BoardCoordinates coord, short color);
 
 };
 

@@ -19,29 +19,27 @@ Board::~Board()
 {
 }
 
-Board::Coordinates Board::getCoordinatesInBoard(short position)
+BoardCoordinates Board::getCoordinatesInBoard(short position)
 {
-  Board::Coordinates c;
-  c.x = position / columns;
-  c.y = position % columns;
+  BoardCoordinates c(position / columns, position % columns);
   return c;
 }
 
-short Board::getLinearPositionInBoardVector(Board::Coordinates c)
+short Board::getLinearPositionInBoardVector(BoardCoordinates c)
 {
-  short position = (this->columns * c.x) + c.y;
+  short position = (this->columns * c.getX()) + c.getY();
   return position;
 }
 
 void Board::resetBoardVector()
 {
-  Board::Coordinates c;
+  BoardCoordinates c;
   for (short i = 0; i < this->rows; i++)
   {
-    c.x = i;
+    c.setX(i);
     for (short j = 0; j < this->columns; j++)
     {
-      c.y = j;
+      c.setY(j);
       short position = getLinearPositionInBoardVector(c);
       if (j < safetyPadding || j >(this->columns - safetyPadding) - 1 ||
         i > this->rows - safetyPadding - 1) {
@@ -94,7 +92,7 @@ short Board::getPaddingValue()
   return paddingValue;
 }
 
-short Board::getValue(Board::Coordinates c)
+short Board::getValue(BoardCoordinates c)
 {
   return boardMapVector[getLinearPositionInBoardVector(c)];
 }
@@ -104,7 +102,7 @@ short Board::getValue(unsigned short position)
   return boardMapVector[position];
 }
 
-void Board::setValue(Board::Coordinates coord, short color)
+void Board::setValue(BoardCoordinates coord, short color)
 {
   boardMapVector[getLinearPositionInBoardVector(coord)] = color;
 }

@@ -35,9 +35,6 @@
     <ClCompile Include="TetriminoManager.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="TetrisBoard.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="TetrisDrawer.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="BoardLineManager.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardCoordinates.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,9 +73,6 @@
     <ClInclude Include="TetriminoShape.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="TetrisBoard.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="TetrisDrawer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -92,6 +89,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="BoardLineManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardCoordinates.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Direction.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

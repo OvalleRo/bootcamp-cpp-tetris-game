@@ -4,7 +4,7 @@ TetrisGame::TetrisGame()
   mngr = TetriminoManager();
   
   board = new Board(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
-  mover = TetriminoMover(*board);
+  mover.setBoard(*board);
   winHeight = (board->getUsableRows() + 1) * TetrisDrawer::TEXTURE_WIDTH;
   winWidth = winHeight * (4.f/3.f);
   window = new sf::RenderWindow(sf::VideoMode(winWidth, winHeight), "Tetris", sf::Style::Titlebar | sf::Style::Close);
@@ -45,7 +45,7 @@ void TetrisGame::startGame()
     {
       if ((elapsedMilliseconds >= waitTimeMilliseconds && !paused)) {
 
-        tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
+        tetriminoChangedPosition = mover.moveTetrimino(Direction::DOWN);
         if (!tetriminoChangedPosition) {
           updateTetriminos();
 
@@ -81,19 +81,19 @@ void TetrisGame::startGame()
       {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::DOWN);
+          tetriminoChangedPosition = mover.moveTetrimino(Direction::DOWN);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::LEFT);
+          tetriminoChangedPosition = mover.moveTetrimino(Direction::LEFT);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::RIGHT);
+          tetriminoChangedPosition = mover.moveTetrimino(Direction::RIGHT);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-          tetriminoChangedPosition = mover.moveTetrimino(TetriminoMover::UP);
+          tetriminoChangedPosition = mover.moveTetrimino(Direction::UP);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {

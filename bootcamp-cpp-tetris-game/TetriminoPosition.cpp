@@ -9,14 +9,14 @@ TetriminoPosition::~TetriminoPosition()
 {
 }
 
-void TetriminoPosition::add(unsigned short order, Board::Coordinates coord)
+void TetriminoPosition::add(unsigned short order, BoardCoordinates coord)
 {
   if (order < blocksPositions.size()) {
     blocksPositions[order] = coord;
   }
 }
 
-Board::Coordinates TetriminoPosition::getCoordinateAt(unsigned short position)
+BoardCoordinates TetriminoPosition::getCoordinateAt(unsigned short position)
 {
   if (position < blocksPositions.size()) {
     return blocksPositions[position];
@@ -29,7 +29,7 @@ unsigned short TetriminoPosition::getNoOfCoordinates()
   return blocksPositions.size();
 }
 
-bool TetriminoPosition::isTetriminoCoordinate(Board::Coordinates coord)
+bool TetriminoPosition::isTetriminoCoordinate(BoardCoordinates coord)
 {
   if (std::count(blocksPositions.begin(), blocksPositions.end(), coord) == 0) {
     return false;

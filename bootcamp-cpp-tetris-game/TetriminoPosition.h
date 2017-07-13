@@ -4,13 +4,13 @@
 #include <algorithm>
 class TetriminoPosition {
 private:
-  std::vector<Board::Coordinates> blocksPositions;
+  std::vector<BoardCoordinates> blocksPositions;
 
 public:
   TetriminoPosition();
   ~TetriminoPosition();
-  void add(unsigned short order, Board::Coordinates coord);
-  Board::Coordinates getCoordinateAt(unsigned short position);
+  void add(unsigned short order, BoardCoordinates coord);
+  BoardCoordinates getCoordinateAt(unsigned short position);
   unsigned short getNoOfCoordinates();
-  bool isTetriminoCoordinate(Board::Coordinates coord);
+  bool isTetriminoCoordinate(BoardCoordinates coord);
 };

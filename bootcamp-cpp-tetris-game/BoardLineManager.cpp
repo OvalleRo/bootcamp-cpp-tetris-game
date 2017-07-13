@@ -19,11 +19,12 @@ unsigned short BoardLineManager::updateLines(TetriminoPosition pos)
   unsigned short noOfColumns = board->getUsableColumns();
   for (int i = 0; i < pos.getNoOfCoordinates(); i++)
   {
-    Board::Coordinates coord = pos.getCoordinateAt(i);
-    ++rows[coord.x];
-    if (rows[coord.x] == noOfColumns)
+    BoardCoordinates coord = pos.getCoordinateAt(i);
+    short x = coord.getX();
+    ++rows[x];
+    if (rows[x] == noOfColumns)
     {
-      clearRow(coord.x);
+      clearRow(x);
       ++cleared;
     }
    
@@ -35,7 +36,6 @@ unsigned short BoardLineManager::updateLines(TetriminoPosition pos)
 void BoardLineManager::clearRow(unsigned short row)
 {
   //rows[row] = 0;
-  Board::Coordinates currentCoord, upCoord;
   bool empty = false;//when a whole row is empty
   for (int i = row; i >= 0; --i)
   {
@@ -48,13 +48,11 @@ void BoardLineManager::clearRow(unsigned short row)
     {
       rows[i] = 0;
     }
-    currentCoord.x = i;
-    upCoord.x = currentCoord.x - 1;
     for (int j = 0; j < board->getColumns(); j++)
     {
-      currentCoord.y = j;
+      BoardCoordinates currentCoord(i, j);
+      BoardCoordinates upCoord = currentCoord.getCordinateInDirection(Direction::UP);
       short value = board->getValue(currentCoord);
-      upCoord.y = currentCoord.y;
 
       if (value != board->getPaddingValue()) {
         //In the first (upper-most) row, there is not an upper value,

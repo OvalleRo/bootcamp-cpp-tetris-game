@@ -5,36 +5,30 @@
 
 class TetriminoMover
 {
-public:
-  enum MovementDirection {
-    DOWN,
-    LEFT,
-    RIGHT,
-    UP
-  };
 
 private:
   Board * board;
   TetriminoPosition currentTetriminoPosition;
-  Board::Coordinates pivot; //For the rotation
+  BoardCoordinates pivot; //For the rotation
   Tetrimino * currentTetrimino;
 
 public:
-  TetriminoMover() {};
+  TetriminoMover();
   TetriminoMover(Board &board);
   ~TetriminoMover();
 
-  bool moveTetrimino(MovementDirection dir);
+  bool moveTetrimino(Direction dir);
 
   bool insertTetrimino(Tetrimino &t);
 
   const TetriminoPosition getCurrentPosition();
 
+  void setBoard(Board & board);
+
 private:
-  //Check collision on current position
-  bool checkCollisionOnCurrentPosition();
-  bool checkCollisionOnCoordinate(Board::Coordinates coord);
-  bool changePositionByDeltas(short x, short y);
+
+  bool checkCollisionOnCoordinate(BoardCoordinates coord);
+  bool changePosition(Direction dir);
   bool rotate();
   //Sets the position to the default
   // and the currentTetrimino pointer to nothing
