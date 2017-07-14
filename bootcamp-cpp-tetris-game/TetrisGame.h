@@ -27,6 +27,7 @@ private:
 
   const short LINES_TO_NEXT_LEVEL = 10,
               SCORE_PER_LINE = 10;
+  const float NEXT_LEVEL_PROPORTION = 0.1f;
 
 public:
   TetrisGame();

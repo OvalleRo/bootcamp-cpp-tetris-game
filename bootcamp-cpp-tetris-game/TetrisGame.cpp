@@ -11,7 +11,7 @@ TetrisGame::TetrisGame()
   drawer = new TetrisDrawer(*window, *board);
   lineMngr = BoardLineManager(*board);
 
-  waitTimeMilliseconds = 2000;
+  waitTimeMilliseconds = 2000.0f;
   level = 1;
   score = 0;
 
@@ -41,9 +41,9 @@ void TetrisGame::startGame()
   while (window->isOpen())
   {
     elapsedMilliseconds = gameClock.getElapsedTime().asMilliseconds();
-    if (!gameOver)
+    if (!gameOver && !paused)
     {
-      if ((elapsedMilliseconds >= waitTimeMilliseconds && !paused)) {
+      if ((elapsedMilliseconds >= waitTimeMilliseconds)) {
 
         tetriminoChangedPosition = mover.moveTetrimino(Direction::DOWN);
         if (!tetriminoChangedPosition) {
@@ -63,7 +63,7 @@ void TetrisGame::startGame()
 
           }
         }
-
+        
         gameClock.restart();
 
       }
@@ -77,7 +77,7 @@ void TetrisGame::startGame()
       {
         window->close();
       }
-      if (!gameOver)
+      if (!gameOver && !paused)
       {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
@@ -95,13 +95,13 @@ void TetrisGame::startGame()
         {
           tetriminoChangedPosition = mover.moveTetrimino(Direction::UP);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        {
-          //Doesn't work quite well--
-          paused = !paused;
-        }
 
       }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+       {
+       //Doesn't work quite well--
+       paused = !paused;
+       }
       
     }
 
@@ -117,7 +117,7 @@ void TetrisGame::startGame()
 void TetrisGame::nextLevel()
 {
   ++level;
-  waitTimeMilliseconds *= 0.85f;
+  waitTimeMilliseconds *= (1.f - NEXT_LEVEL_PROPORTION);
 }
 
 void TetrisGame::updateScore(short lines)
