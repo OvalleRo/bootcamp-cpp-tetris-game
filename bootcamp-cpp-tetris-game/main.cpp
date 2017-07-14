@@ -3,7 +3,6 @@
 
 int main()
 {
-
   TetrisGame game = TetrisGame();
   
   game.startGame();

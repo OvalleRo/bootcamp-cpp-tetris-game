@@ -29,18 +29,17 @@ private:
               SCORE_PER_LINE = 10;
   const float NEXT_LEVEL_PROPORTION = 0.1f;
 
+  //Increase level
+  void nextLevel();
+  //Update the score
+  void updateScore(short lines);
+  void nextTetriminos();
+
 public:
   TetrisGame();
   ~TetrisGame();
 
   //Start a new game of tetris, principal method (controlling I/O)
   void startGame();
-
-private:
-  //Increase level
-  void nextLevel();
-  //Update the score
-  void updateScore(short lines);
-  void updateTetriminos();
 };
 

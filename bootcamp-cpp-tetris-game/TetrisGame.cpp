@@ -27,7 +27,7 @@ void TetrisGame::startGame()
 {
   gameClock.restart();
 
-  updateTetriminos();
+  nextTetriminos();
 
   mover.insertTetrimino(*current);
   
@@ -47,7 +47,7 @@ void TetrisGame::startGame()
 
         tetriminoChangedPosition = mover.moveTetrimino(Direction::DOWN);
         if (!tetriminoChangedPosition) {
-          updateTetriminos();
+          nextTetriminos();
 
           clearedLines = lineMngr.updateLines(currentPosition);
           totalLines += clearedLines;
@@ -126,20 +126,19 @@ void TetrisGame::updateScore(short lines)
 }
 
 
-void TetrisGame::updateTetriminos()
+void TetrisGame::nextTetriminos()
 {
   if (current == nullptr) {
 
     current = mngr.getRandom();
+
   }
   else
   {
     current = next;
 
   }
-  do
-  {
-    next = mngr.getRandom();
-  } while (current == next);
+ next = mngr.getRandom();
+ 
 }
 
