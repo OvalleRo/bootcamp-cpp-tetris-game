@@ -28,10 +28,10 @@ bool TetriminoMover::moveTetrimino(Direction dir)
   case DOWN:
   case LEFT:
   case RIGHT:
-    return changePosition(dir);
+    return changeCurrentTetriminoPosition(dir);
     break;
   case UP:
-    return rotate();
+    return rotateTetriminoInBoard();
   default:
     return false;
     break;
@@ -49,7 +49,7 @@ bool TetriminoMover::insertTetrimino(Tetrimino & t)
   
   unsigned short initialCol = (board->getColumns() / 2) - (Tetrimino::MAP_LENGTH / 2);
 
-  if (!insertTetrimino(0, initialCol, tetriminoMap)) {
+  if (!putMapInCoordinate(BoardCoordinates(0, initialCol), tetriminoMap)) {
     resetMover();
     return false;
   }
@@ -86,7 +86,7 @@ bool TetriminoMover::checkCollisionOnCoordinate(BoardCoordinates coord)
   return true;
 }
 
-bool TetriminoMover::changePosition(Direction dir)
+bool TetriminoMover::changeCurrentTetriminoPosition(Direction dir)
 {
   /*
   Given the row and col deltas, the tetromino is moved in the board
@@ -121,14 +121,11 @@ bool TetriminoMover::changePosition(Direction dir)
   return true;
 }
 
-bool TetriminoMover::rotate()
+bool TetriminoMover::rotateTetriminoInBoard()
 {
   unsigned short * rotatedMap = currentTetrimino->rotate();
-  unsigned short initialRow, initialCol;
   TetriminoPosition lastPosition(currentTetriminoPosition);
-  initialRow = pivot.getX();
-  initialCol = pivot.getY();
-  if (insertTetrimino(initialRow, initialCol, rotatedMap))
+  if (putMapInCoordinate(pivot, rotatedMap))
   {
     currentTetrimino->setMap(rotatedMap);
     for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
@@ -158,7 +155,7 @@ void TetriminoMover::resetMover()
   
 }
 
-bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short initialCol, unsigned short * tetriminoMap)
+bool TetriminoMover::putMapInCoordinate(BoardCoordinates initialCoord, unsigned short * tetriminoMap)
 {
   unsigned short index = 0;
   TetriminoPosition nextPosition;
@@ -170,8 +167,8 @@ bool TetriminoMover::insertTetrimino(unsigned short initialRow, unsigned short i
     {
       short tetriminoMapPosition, boardMapPosition;
 
-      coord.setX(row + initialRow);
-      coord.setY(col + initialCol);
+      coord.setX(row + initialCoord.getX());
+      coord.setY(col + initialCoord.getY());
 
       tetriminoMapPosition = (Tetrimino::MAP_LENGTH * row) + col;
 

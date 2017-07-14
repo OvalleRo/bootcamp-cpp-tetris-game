@@ -8,9 +8,21 @@ class TetriminoMover
 
 private:
   Board * board;
+  // The position (colection of coordinates) of the blocks that make the Tetrimino
+  // falling in the board
   TetriminoPosition currentTetriminoPosition;
   BoardCoordinates pivot; //For the rotation
+  // The tetrimino falling in the board
   Tetrimino * currentTetrimino;
+
+  bool checkCollisionOnCoordinate(BoardCoordinates coord);
+  bool changeCurrentTetriminoPosition(Direction dir);
+  bool rotateTetriminoInBoard();
+  //Sets the position to the default
+  // and the currentTetrimino pointer to nothing
+  void resetMover();
+  bool putMapInCoordinate(BoardCoordinates initialCoord, unsigned short * tetriminoMap);
+  void changeRotationPivot();
 
 public:
   TetriminoMover();
@@ -24,17 +36,5 @@ public:
   const TetriminoPosition getCurrentPosition();
 
   void setBoard(Board & board);
-
-private:
-
-  bool checkCollisionOnCoordinate(BoardCoordinates coord);
-  bool changePosition(Direction dir);
-  bool rotate();
-  //Sets the position to the default
-  // and the currentTetrimino pointer to nothing
-  void resetMover();
-  bool insertTetrimino(unsigned short initialRow, unsigned short initialCol, unsigned short * tetriminoMap);
-  void changeRotationPivot();
-
 };
 
