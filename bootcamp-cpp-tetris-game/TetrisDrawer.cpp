@@ -60,7 +60,7 @@ TetrisDrawer::~TetrisDrawer()
 {
 }
 
-void TetrisDrawer::drawGameScreen(short level, int score, Tetrimino & next, bool gameOver)
+void TetrisDrawer::drawGameScreen(short level, int score, Tetrimino & next, GameStatus status)
 {
   window->clear(sf::Color::Black);
   
@@ -72,28 +72,36 @@ void TetrisDrawer::drawGameScreen(short level, int score, Tetrimino & next, bool
 
   drawNextTetrimino(next);
 
-  if (gameOver)
+  if (status != PLAYING)
   {
-    drawGameOverSplash();
+    drawStatusSplash(status);
   }
    
   window->display();
 }
 
-void TetrisDrawer::drawGameOverSplash()
+void TetrisDrawer::drawStatusSplash(GameStatus status)
 {
-  sf::RectangleShape gameOverBox;
-  gameOverBox.setFillColor(sf::Color(0, 0, 0, 192));
-  gameOverBox.setSize(sf::Vector2f(window->getSize()));
-  window->draw(gameOverBox);
+  sf::RectangleShape statusSplashBox;
+  statusSplashBox.setFillColor(sf::Color(0, 0, 0, 192));
+  statusSplashBox.setSize(sf::Vector2f(window->getSize()));
+  window->draw(statusSplashBox);
 
-  sf::Text gameOverText;
-  gameOverText.setString("Game over!");
-  gameOverText.setCharacterSize(96);
-  gameOverText.setFont(gameFont);
-  gameOverText.setPosition(gameOverBox.getSize().x / 3.f,
-    gameOverBox.getSize().y / 3.f);
-  window->draw(gameOverText);
+  sf::Text statusText;
+  if (status == OVER)
+  {
+    statusText.setString("Game over!");
+    statusText.setCharacterSize(96);
+  }
+  else
+  {
+    statusText.setString("Paused, CTRL to continue.");
+    statusText.setCharacterSize(48);
+  }
+  statusText.setFont(gameFont);
+  statusText.setPosition(statusSplashBox.getSize().x / 3.f,
+    statusSplashBox.getSize().y / 3.f);
+  window->draw(statusText);
 }
 
 bool TetrisDrawer::initTexture(sf::Texture & t, const char * dir)

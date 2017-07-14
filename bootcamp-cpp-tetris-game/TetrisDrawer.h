@@ -4,6 +4,7 @@
 #include "SFML\Graphics.hpp"
 #include <sstream>
 #include <string>
+#include "GameStatus.h"
 class TetrisDrawer
 {
 public:
@@ -26,14 +27,14 @@ public:
   TetrisDrawer(sf::RenderWindow & window, Board & board);
   ~TetrisDrawer();
 
-  void drawGameScreen(short level, int score, Tetrimino & next, bool gameOver);
+  void drawGameScreen(short level, int score, Tetrimino & next, GameStatus status);
 
 private:
   bool initTexture(sf::Texture & t, const char * dir);
 
   bool initFont(sf::Font & f, const char * dir);
 
-  void drawGameOverSplash();
+  void drawStatusSplash(GameStatus status);
   
   void drawBackground();
 

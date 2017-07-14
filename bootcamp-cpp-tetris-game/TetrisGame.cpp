@@ -25,6 +25,7 @@ TetrisGame::~TetrisGame()
 
 void TetrisGame::startGame()
 {
+  GameStatus status = PLAYING;
   gameClock.restart();
 
   nextTetriminos();
@@ -33,17 +34,15 @@ void TetrisGame::startGame()
   
   float elapsedMilliseconds;
   bool tetriminoChangedPosition = false;
-  bool paused = false;
-  bool gameOver = false;
 
   short clearedLines = 0, totalLines = 0;
 
   while (window->isOpen())
   {
-    elapsedMilliseconds = gameClock.getElapsedTime().asMilliseconds();
 
-    if (!gameOver && !paused)
+    if (status == PLAYING)
     {
+      elapsedMilliseconds = gameClock.getElapsedTime().asMilliseconds();
       if ((elapsedMilliseconds >= waitTimeMilliseconds)) {
 
         tetriminoChangedPosition = mover.moveTetrimino(Direction::DOWN);
@@ -55,7 +54,7 @@ void TetrisGame::startGame()
           updateScore(clearedLines);
           tetriminoChangedPosition = mover.insertTetrimino(*current);
           if (!tetriminoChangedPosition) {
-            gameOver = true;
+            status = OVER;
           }
           if (totalLines >= LINES_TO_NEXT_LEVEL) {
 
@@ -78,7 +77,21 @@ void TetrisGame::startGame()
       {
         window->close();
       }
-      if (!gameOver && !paused)
+
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) || 
+          sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+      {
+        if (status == PLAYING)
+        {
+          status = PAUSED;
+        }
+        else if (status == PAUSED)
+        {
+          status = PLAYING;
+        }
+      }
+
+      if (status == PLAYING)
       {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
@@ -98,11 +111,7 @@ void TetrisGame::startGame()
         }
 
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-      {
-       //Doesn't work quite well--
-       paused = !paused;
-      }
+
       
     }
 
@@ -111,7 +120,7 @@ void TetrisGame::startGame()
       currentPosition = mover.getCurrentPosition();
     }
 
-    drawer->drawGameScreen(level, score, *next, gameOver);
+    drawer->drawGameScreen(level, score, *next, status);
   }
 }
 

@@ -144,6 +144,7 @@
     <ClInclude Include="BoardCoordinates.h" />
     <ClInclude Include="BoardLineManager.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="GameStatus.h" />
     <ClInclude Include="RotableTetrimino.h" />
     <ClInclude Include="StaticTetrimino.h" />
     <ClInclude Include="Tetrimino.h" />
