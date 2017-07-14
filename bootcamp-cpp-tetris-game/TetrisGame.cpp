@@ -138,7 +138,15 @@ void TetrisGame::nextTetriminos()
     current = next;
 
   }
- next = mngr.getRandom();
+  do
+  {
+    //Note: In my experience testing the game and the time library,
+    //while the seed is always the unix time (always different) since there are only
+    //a limited number of tetriminos and the rand number returns a number between 0 and RAND_MAX,
+    //rand() % tetriminos_count can return more than once the same value, hence the loop
+    next = mngr.getRandom();
+
+  } while (next == current);
  
 }
 

@@ -129,6 +129,8 @@ void TetriminoMover::resetMover()
   
 }
 
+// Changes the position of the tetromino in the map, if the change is allowed
+// (does not collide)
 bool TetriminoMover::putMapInCoordinate(BoardCoordinates initialCoord, unsigned short * tetriminoMap)
 {
   unsigned short index = 0;
@@ -162,6 +164,8 @@ bool TetriminoMover::putMapInCoordinate(BoardCoordinates initialCoord, unsigned 
   return true;
 }
 
+// The rotation pivot is the coordinate arround which the rotated tetrimino is 
+// drawn in the board.
 void TetriminoMover::changeRotationPivot()
 {
   int x = board->getRows(), y = board->getColumns();
