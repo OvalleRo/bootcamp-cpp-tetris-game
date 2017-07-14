@@ -23,6 +23,7 @@ private:
   void resetMover();
   bool putMapInCoordinate(BoardCoordinates initialCoord, unsigned short * tetriminoMap);
   void changeRotationPivot();
+  void changeBlocksToCurrentPosition(TetriminoPosition lastPosition);
 
 public:
   TetriminoMover();

@@ -128,20 +128,10 @@ bool TetriminoMover::rotateTetriminoInBoard()
   if (putMapInCoordinate(pivot, rotatedMap))
   {
     currentTetrimino->setMap(rotatedMap);
-    for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
-    {
-      //Clears last position (as long as it's not part of the next), and sets the corresponding
-      //values in the next coordinates
-      if (!currentTetriminoPosition.isTetriminoCoordinate(lastPosition.getCoordinateAt(i)))
-      {
-        board->setValue(lastPosition.getCoordinateAt(i), board->getBackgroundValue());
-      }
-      board->setValue(currentTetriminoPosition.getCoordinateAt(i), currentTetrimino->getColor());
-    }
+    changeBlocksToCurrentPosition(lastPosition);
     return true;
   }
   else {
-    //currentTetriminoPosition = lastPosition;
     return false;
   }
 }
@@ -205,4 +195,18 @@ void TetriminoMover::changeRotationPivot()
   }
   pivot.setX(x);
   pivot.setY(y);
+}
+
+void TetriminoMover::changeBlocksToCurrentPosition(TetriminoPosition lastPosition)
+{
+  for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
+  {
+    //Clears last position (as long as it's not part of the next), and sets the corresponding
+    //values in the next coordinates
+    if (!currentTetriminoPosition.isTetriminoCoordinate(lastPosition.getCoordinateAt(i)))
+    {
+      board->setValue(lastPosition.getCoordinateAt(i), board->getBackgroundValue());
+    }
+    board->setValue(currentTetriminoPosition.getCoordinateAt(i), currentTetrimino->getColor());
+  }
 }
