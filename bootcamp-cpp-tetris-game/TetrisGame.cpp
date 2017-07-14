@@ -41,6 +41,7 @@ void TetrisGame::startGame()
   while (window->isOpen())
   {
     elapsedMilliseconds = gameClock.getElapsedTime().asMilliseconds();
+
     if (!gameOver && !paused)
     {
       if ((elapsedMilliseconds >= waitTimeMilliseconds)) {
@@ -98,10 +99,10 @@ void TetrisGame::startGame()
 
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-       {
+      {
        //Doesn't work quite well--
        paused = !paused;
-       }
+      }
       
     }
 

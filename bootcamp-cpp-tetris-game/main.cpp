@@ -1,7 +1,8 @@
 #include "TetrisGame.h"
+#include <windows.h>
 
 
-int main()
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
   TetrisGame game = TetrisGame();
   
