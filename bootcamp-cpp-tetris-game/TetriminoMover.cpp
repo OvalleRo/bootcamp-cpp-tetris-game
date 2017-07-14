@@ -54,10 +54,7 @@ bool TetriminoMover::insertTetrimino(Tetrimino & t)
     return false;
   }
 
-  for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
-  {
-    board->setValue(currentTetriminoPosition.getCoordinateAt(i), currentTetrimino->getColor());
-  }
+  changeBlocksToCurrentPosition(currentTetriminoPosition);
   changeRotationPivot();
 
   return true;
@@ -88,35 +85,22 @@ bool TetriminoMover::checkCollisionOnCoordinate(BoardCoordinates coord)
 
 bool TetriminoMover::changeCurrentTetriminoPosition(Direction dir)
 {
-  /*
-  Given the row and col deltas, the tetromino is moved in the board
-  as long as it moves to an empty space (background block or value).
-  */
-  TetriminoPosition next;
+  TetriminoPosition next, lastPosition(currentTetriminoPosition);
   for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
   {
-    BoardCoordinates current = currentTetriminoPosition.getCoordinateAt(i)
+    BoardCoordinates coord = currentTetriminoPosition.getCoordinateAt(i)
                                                         .getCordinateInDirection(dir);
 
-    if (!checkCollisionOnCoordinate(current))
+    if (!checkCollisionOnCoordinate(coord))
     {
-      next.add(i, current);
+      next.add(i, coord);
     }
     else {
       return false;
     }
   }
-  for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
-  {
-    //Clears last position (as long as it's not part of the next), and sets the corresponding
-    //values in the next coordinates
-    if (!next.isTetriminoCoordinate(currentTetriminoPosition.getCoordinateAt(i)))
-    {
-      board->setValue(currentTetriminoPosition.getCoordinateAt(i), board->getBackgroundValue());
-    }
-    board->setValue(next.getCoordinateAt(i), currentTetrimino->getColor());
-  }
   currentTetriminoPosition = next;
+  changeBlocksToCurrentPosition(lastPosition);
   changeRotationPivot();
   return true;
 }
@@ -197,6 +181,7 @@ void TetriminoMover::changeRotationPivot()
   pivot.setY(y);
 }
 
+// 'Moves' the blocks of the falling tetrimino to the current position
 void TetriminoMover::changeBlocksToCurrentPosition(TetriminoPosition lastPosition)
 {
   for (int i = 0; i < Tetrimino::MAP_LENGTH; i++)
