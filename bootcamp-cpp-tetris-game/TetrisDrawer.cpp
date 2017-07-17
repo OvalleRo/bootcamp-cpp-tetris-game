@@ -101,7 +101,7 @@ void TetrisDrawer::drawStatusSplash(GameStatus status)
     statusText.setCharacterSize(48);
   }
   statusText.setFont(gameFont);
-  statusText.setPosition(statusSplashBox.getSize().x / 3.f,
+  statusText.setPosition(statusSplashBox.getSize().x / 4.f,
     statusSplashBox.getSize().y / 3.f);
   window->draw(statusText);
 }

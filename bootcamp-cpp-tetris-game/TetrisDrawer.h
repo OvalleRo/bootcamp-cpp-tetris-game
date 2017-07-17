@@ -7,9 +7,6 @@
 #include "GameStatus.h"
 class TetrisDrawer
 {
-public:
-  static const int TEXTURE_WIDTH = 40;
-
 private:
   sf::RenderWindow *window;
   const char * TEXTURE_DIR = "./resources/textures/allBlocks_40_40_8.png";
@@ -25,19 +22,12 @@ private:
   sf::Font gameFont;
   sf::Text gameInfoText, nextTetriminoText;
 
-public:
-  TetrisDrawer(sf::RenderWindow & window, Board & board);
-  ~TetrisDrawer();
-
-  void drawGameScreen(short level, int score, Tetrimino & next, GameStatus status);
-
-private:
   bool initTexture(sf::Texture & t, const char * dir);
 
   bool initFont(sf::Font & f, const char * dir);
 
   void drawStatusSplash(GameStatus status);
-  
+
   void drawBackground();
 
   void drawBoard();
@@ -46,5 +36,12 @@ private:
 
   void drawNextTetrimino(Tetrimino & next);
 
+public:
+  static const int TEXTURE_WIDTH = 40;
+
+  TetrisDrawer(sf::RenderWindow & window, Board & board);
+  ~TetrisDrawer();
+
+  void drawGameScreen(short level, int score, Tetrimino & next, GameStatus status);
 };
 

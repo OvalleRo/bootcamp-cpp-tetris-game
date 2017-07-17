@@ -15,7 +15,7 @@ public:
   {
     BLACK = 0, //Intended as a background color
 
-    BLUE ,
+    BLUE,
     GREEN,
     ORANGE,
     RED,
@@ -24,7 +24,6 @@ public:
     CYAN
 
   };
-
 protected:
 
   TetriminoShape name;
@@ -34,6 +33,7 @@ protected:
   //const int COLOR_COUNT = 7;
 
 public:
+
 
   Tetrimino() {};
   //The shape is one of the posible defined in the corresponding enum
