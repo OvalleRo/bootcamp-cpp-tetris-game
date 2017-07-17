@@ -44,6 +44,7 @@ void BoardCoordinates::setY(short y)
   this->y = y;
 }
 
+//Returns the corresponding coordinate in the given direction
 BoardCoordinates BoardCoordinates::getCordinateInDirection(Direction dir)
 {
   BoardCoordinates c = *this;

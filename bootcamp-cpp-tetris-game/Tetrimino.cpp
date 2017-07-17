@@ -37,6 +37,7 @@ Tetrimino::Color Tetrimino::getColor()
   return c;
 }
 
+//For debbuging purposes
 void Tetrimino::print()
 {
   int pos;
