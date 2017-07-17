@@ -138,6 +138,7 @@
     <ClCompile Include="TetriminoPosition.cpp" />
     <ClCompile Include="TetrisDrawer.cpp" />
     <ClCompile Include="TetrisGame.cpp" />
+    <ClCompile Include="TetrisSoundPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="BoardLineManager.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="GameStatus.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RotableTetrimino.h" />
     <ClInclude Include="StaticTetrimino.h" />
     <ClInclude Include="Tetrimino.h" />
@@ -154,6 +156,10 @@
     <ClInclude Include="TetriminoShape.h" />
     <ClInclude Include="TetrisDrawer.h" />
     <ClInclude Include="TetrisGame.h" />
+    <ClInclude Include="TetrisSoundPlayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

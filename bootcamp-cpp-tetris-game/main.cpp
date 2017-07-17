@@ -4,7 +4,7 @@
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
-  TetrisGame game = TetrisGame();
+  TetrisGame game;
   
   game.startGame();
 

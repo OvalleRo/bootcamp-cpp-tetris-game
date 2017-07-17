@@ -9,11 +9,13 @@ class TetrisDrawer
 {
 public:
   static const int TEXTURE_WIDTH = 40;
+
 private:
   sf::RenderWindow *window;
-  const char * TEXTURE_DIR = "../resources/textures/allBlocks_40_40_8.png";
-  const char * BACKGROUND_DIR = "../resources/backgrounds/background_blocks_pattern.png";
-  const char * FONT_DIR = "../resources/fonts/ARCADE.TTF";
+  const char * TEXTURE_DIR = "./resources/textures/allBlocks_40_40_8.png";
+  const char * BACKGROUND_DIR = "./resources/backgrounds/background_blocks_pattern.png";
+  const char * FONT_DIR = "./resources/fonts/ARCADE.TTF";
+  const char * ICON_DIR = "./resources/icon.png";
   static const int BACKGROUND_WIDTH = 160;
   Board * board;
   float blockScaleFactor, backgroundScaleFactor;

@@ -7,7 +7,9 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   this->window = &window;
   this->board = &board;
   blockScaleFactor = 1.0f;
-  //backgroundScaleFactor = blockScaleFactor / 2.0f;
+  sf::Image icon;
+  icon.loadFromFile(ICON_DIR);
+  this->window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
   if (!initTexture(tetrominoTexture, TEXTURE_DIR)) {
     //error

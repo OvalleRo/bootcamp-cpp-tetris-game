@@ -1,4 +1,5 @@
 #include "TetrisGame.h"
+
 TetrisGame::TetrisGame()
 {
   mngr = TetriminoManager();
@@ -6,7 +7,7 @@ TetrisGame::TetrisGame()
   board = new Board(20, 10, Tetrimino::MAP_LENGTH, Tetrimino::BLACK);
   mover.setBoard(*board);
   winHeight = (board->getUsableRows() + 1) * TetrisDrawer::TEXTURE_WIDTH;
-  winWidth = winHeight * (4.f/3.f);
+  winWidth = winHeight * WINDOW_ASPECT_RATIO;
   window = new sf::RenderWindow(sf::VideoMode(winWidth, winHeight), "Tetris", sf::Style::Titlebar | sf::Style::Close);
   drawer = new TetrisDrawer(*window, *board);
   lineMngr = BoardLineManager(*board);
@@ -26,6 +27,7 @@ TetrisGame::~TetrisGame()
 void TetrisGame::startGame()
 {
   GameStatus status = PLAYING;
+  soundPlayer.switchMusicStatus(status);
   gameClock.restart();
 
   nextTetriminos();
@@ -55,9 +57,9 @@ void TetrisGame::startGame()
           tetriminoChangedPosition = mover.insertTetrimino(*current);
           if (!tetriminoChangedPosition) {
             status = OVER;
+            soundPlayer.switchMusicStatus(status);
           }
           if (totalLines >= LINES_TO_NEXT_LEVEL) {
-
             totalLines = 0;
             nextLevel();
 
@@ -89,6 +91,7 @@ void TetrisGame::startGame()
         {
           status = PLAYING;
         }
+        soundPlayer.switchMusicStatus(status);
       }
 
       if (status == PLAYING)
@@ -127,7 +130,7 @@ void TetrisGame::startGame()
 void TetrisGame::nextLevel()
 {
   ++level;
-  waitTimeMilliseconds *= (1.f - NEXT_LEVEL_PROPORTION);
+  waitTimeMilliseconds *= (1.f - TIME_DECREASE_PROPORTION);
 }
 
 void TetrisGame::updateScore(short lines)

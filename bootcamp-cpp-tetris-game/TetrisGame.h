@@ -7,6 +7,7 @@
 #include "TetriminoMover.h"
 #include "Board.h"
 #include "BoardLineManager.h"
+#include "TetrisSoundPlayer.h"
 
 class TetrisGame
 {
@@ -24,10 +25,12 @@ private:
   int score;
   TetrisDrawer * drawer;
   sf::Clock gameClock;
+  TetrisSoundPlayer soundPlayer;
 
   const short LINES_TO_NEXT_LEVEL = 10,
               SCORE_PER_LINE = 10;
-  const float NEXT_LEVEL_PROPORTION = 0.1f;
+  const float TIME_DECREASE_PROPORTION = 0.1f,
+              WINDOW_ASPECT_RATIO = 4.f/3.f;
 
   //Increase level
   void nextLevel();
@@ -36,8 +39,6 @@ private:
   void nextTetriminos();
 
 public:
-
-
   TetrisGame();
   ~TetrisGame();
 
