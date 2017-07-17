@@ -27,7 +27,7 @@ TetrisGame::~TetrisGame()
 void TetrisGame::startGame()
 {
   GameStatus status = PLAYING;
-  soundPlayer.switchMusicStatus(status);
+  soundPlayer.switchBackgroundMusicStatus(status);
   gameClock.restart();
 
   nextTetriminos();
@@ -52,17 +52,24 @@ void TetrisGame::startGame()
           nextTetriminos();
 
           clearedLines = lineMngr.updateLines(currentPosition);
-          totalLines += clearedLines;
-          updateScore(clearedLines);
+          if (clearedLines > 0)
+          {
+            soundPlayer.lineCompleted();
+            totalLines += clearedLines;
+            updateScore(clearedLines);
+          }
+          else
+          {
+            soundPlayer.tetriminoCollision();
+          }
           tetriminoChangedPosition = mover.insertTetrimino(*current);
           if (!tetriminoChangedPosition) {
             status = OVER;
-            soundPlayer.switchMusicStatus(status);
+            soundPlayer.switchBackgroundMusicStatus(status);
           }
           if (totalLines >= LINES_TO_NEXT_LEVEL) {
             totalLines = 0;
             nextLevel();
-
           }
         }
         
@@ -91,7 +98,7 @@ void TetrisGame::startGame()
         {
           status = PLAYING;
         }
-        soundPlayer.switchMusicStatus(status);
+        soundPlayer.switchBackgroundMusicStatus(status);
       }
 
       if (status == PLAYING)

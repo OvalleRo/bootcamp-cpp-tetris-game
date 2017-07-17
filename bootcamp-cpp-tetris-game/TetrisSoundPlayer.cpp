@@ -6,6 +6,13 @@ TetrisSoundPlayer::TetrisSoundPlayer()
 {
   backgroundMusic.openFromFile(BACKGROUND_MUSIC_DIR);
   backgroundMusic.setLoop(true);
+
+  lineCompletedSoundBuffer.loadFromFile(LINE_DIR);
+  lineCompletedSound.setBuffer(lineCompletedSoundBuffer);
+
+  tetriminoCollisionSoundBuffer.loadFromFile(COLLISION_DIR);
+  tetriminoCollisionSound.setBuffer(tetriminoCollisionSoundBuffer);
+  tetriminoCollisionSound.setVolume(COLLISION_VOLUME);
 }
 
 
@@ -13,7 +20,7 @@ TetrisSoundPlayer::~TetrisSoundPlayer()
 {
 }
 
-void TetrisSoundPlayer::switchMusicStatus(GameStatus status)
+void TetrisSoundPlayer::switchBackgroundMusicStatus(GameStatus status)
 {
   switch (status)
   {
@@ -29,5 +36,15 @@ void TetrisSoundPlayer::switchMusicStatus(GameStatus status)
   default:
     break;
   }
+}
+
+void TetrisSoundPlayer::lineCompleted()
+{
+  lineCompletedSound.play();
+}
+
+void TetrisSoundPlayer::tetriminoCollision()
+{
+  tetriminoCollisionSound.play();
 }
 
