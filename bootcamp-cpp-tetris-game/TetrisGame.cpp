@@ -87,6 +87,14 @@ void TetrisGame::startGame()
         window->close();
       }
 
+      if (event.type == sf::Event::LostFocus && status == PLAYING)
+      {
+        status = PAUSED;
+      }
+      else if (event.type == sf::Event::GainedFocus && status == PAUSED) {
+        status = PLAYING;
+      }
+
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) || 
           sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
       {
