@@ -170,3 +170,8 @@ void TetrisGame::nextTetriminos()
  
 }
 
+bool TetrisGame::resourcesLoadedCorrectly()
+{
+  return drawer->artifactsLoadedCorrectly() && soundPlayer.soundsLoadedCorrectly();
+}
+

@@ -12,6 +12,7 @@ private:
   const char * COLLISION_DIR = "./resources/sounds/collision_thud.wav";
   const float MUSIC_VOLUME = 40.f;
   const float COLLISION_VOLUME = 50.f;
+  bool soundsLoaded;
 
 public:
   TetrisSoundPlayer();
@@ -21,6 +22,8 @@ public:
   void switchBackgroundMusicStatus(GameStatus status);
   void lineCompleted();
   void tetriminoCollision();
+
+  bool soundsLoadedCorrectly();
 
 };
 

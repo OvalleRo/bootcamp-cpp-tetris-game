@@ -14,6 +14,8 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   if (!initTexture(tetrominoTexture, TEXTURE_DIR)) {
     //error
     std::cout << "Error tetromino";
+    this->graphicsArtifactsLoaded = false;
+    return;
   }
   tetrominoTexture.setRepeated(true);
   tetrominoSprite.setTexture(tetrominoTexture);
@@ -22,6 +24,8 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   if (!initTexture(backgroundTexture, BACKGROUND_DIR)) {
     //error
     std::cout << "Error background";
+    this->graphicsArtifactsLoaded = false;
+    return;
   }
   backgroundTexture.setRepeated(true);
   backgroundTexture.setSmooth(true);
@@ -32,6 +36,8 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   {
     //Font error
     std::cout << "Font error";
+    this->graphicsArtifactsLoaded = false;
+    return;
   }
   //Fill color for the boxes
   sf::Color boxColor(0, 0, 0, 192);
@@ -56,6 +62,8 @@ TetrisDrawer::TetrisDrawer(sf::RenderWindow & window, Board & board)
   nextTetriminoText.setString("Next Tetrimino");
   nextTetriminoText.setPosition(nextTetriminoBox.getPosition().x + nextTetriminoBox.getSize().x / 5.f,
                               nextTetriminoBox.getPosition().y + nextTetriminoBox.getSize().y / 15.f);
+
+  this->graphicsArtifactsLoaded = true;
 }
 
 TetrisDrawer::~TetrisDrawer()
@@ -84,8 +92,11 @@ void TetrisDrawer::drawGameScreen(short level, int score, Tetrimino & next, Game
 
 void TetrisDrawer::drawStatusSplash(GameStatus status)
 {
+  sf::Color splashColor(0, 0, 0, 192);
+  short overTextSize = 92, pauseTextSize = 48;
+
   sf::RectangleShape statusSplashBox;
-  statusSplashBox.setFillColor(sf::Color(0, 0, 0, 192));
+  statusSplashBox.setFillColor(splashColor);
   statusSplashBox.setSize(sf::Vector2f(window->getSize()));
   window->draw(statusSplashBox);
 
@@ -93,17 +104,22 @@ void TetrisDrawer::drawStatusSplash(GameStatus status)
   if (status == OVER)
   {
     statusText.setString("Game over!");
-    statusText.setCharacterSize(96);
+    statusText.setCharacterSize(overTextSize);
   }
   else
   {
     statusText.setString("Paused, CTRL to continue.");
-    statusText.setCharacterSize(48);
+    statusText.setCharacterSize(pauseTextSize);
   }
   statusText.setFont(gameFont);
   statusText.setPosition(statusSplashBox.getSize().x / 4.f,
     statusSplashBox.getSize().y / 3.f);
   window->draw(statusText);
+}
+
+bool TetrisDrawer::artifactsLoadedCorrectly()
+{
+  return graphicsArtifactsLoaded;
 }
 
 bool TetrisDrawer::initTexture(sf::Texture & t, const char * dir)

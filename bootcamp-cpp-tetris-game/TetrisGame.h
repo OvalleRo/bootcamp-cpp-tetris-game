@@ -26,6 +26,7 @@ private:
   TetrisDrawer * drawer;
   sf::Clock gameClock;
   TetrisSoundPlayer soundPlayer;
+  bool gameResourcesLoadedCorrectly; //Both graphics and sounds..
 
   const short LINES_TO_NEXT_LEVEL = 10,
               SCORE_PER_LINE = 10;
@@ -44,5 +45,6 @@ public:
 
   //Start a new game of tetris, principal method (controlling I/O)
   void startGame();
+  bool resourcesLoadedCorrectly();
 };
 

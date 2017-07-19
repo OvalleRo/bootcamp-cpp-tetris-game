@@ -21,6 +21,8 @@ private:
   sf::Texture tetrominoTexture, backgroundTexture;
   sf::Font gameFont;
   sf::Text gameInfoText, nextTetriminoText;
+  //This flag indicates whether the resources (graphics, fonts, etc) were correctly loaded
+  bool graphicsArtifactsLoaded;
 
   bool initTexture(sf::Texture & t, const char * dir);
 
@@ -43,5 +45,6 @@ public:
   ~TetrisDrawer();
 
   void drawGameScreen(short level, int score, Tetrimino & next, GameStatus status);
+  bool artifactsLoadedCorrectly();
 };
 

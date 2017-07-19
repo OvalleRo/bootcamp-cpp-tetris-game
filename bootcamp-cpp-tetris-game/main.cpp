@@ -5,8 +5,10 @@
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
   TetrisGame game;
-  
-  game.startGame();
+  if (game.resourcesLoadedCorrectly())
+  {
+    game.startGame();
+  }
 
   return 0;
 }

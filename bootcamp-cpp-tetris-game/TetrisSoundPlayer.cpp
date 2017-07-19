@@ -5,14 +5,26 @@
 TetrisSoundPlayer::TetrisSoundPlayer()
 {
   backgroundMusic.openFromFile(BACKGROUND_MUSIC_DIR);
+  if (!backgroundMusic.openFromFile(BACKGROUND_MUSIC_DIR)) {
+    soundsLoaded = false;
+    return;
+  }
   backgroundMusic.setLoop(true);
 
-  lineCompletedSoundBuffer.loadFromFile(LINE_DIR);
+  
+  if (!lineCompletedSoundBuffer.loadFromFile(LINE_DIR)) {
+    soundsLoaded = false;
+    return;
+  }
   lineCompletedSound.setBuffer(lineCompletedSoundBuffer);
 
-  tetriminoCollisionSoundBuffer.loadFromFile(COLLISION_DIR);
+  if (!tetriminoCollisionSoundBuffer.loadFromFile(COLLISION_DIR)) {
+    soundsLoaded = false;
+    return;
+  }
   tetriminoCollisionSound.setBuffer(tetriminoCollisionSoundBuffer);
   tetriminoCollisionSound.setVolume(COLLISION_VOLUME);
+  soundsLoaded = true;
 }
 
 
@@ -46,5 +58,10 @@ void TetrisSoundPlayer::lineCompleted()
 void TetrisSoundPlayer::tetriminoCollision()
 {
   tetriminoCollisionSound.play();
+}
+
+bool TetrisSoundPlayer::soundsLoadedCorrectly()
+{
+  return soundsLoaded;
 }
 
